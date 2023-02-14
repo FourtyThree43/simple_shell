@@ -47,10 +47,7 @@ int main(void)
 {
 	char **arr = tokenize();
 	int i;
-/*
-*	char nl = '\n';
-*	int wrt;
-*/
+
 	for (i = 0; arr[i]; i++)
 	{
 		if (arr[i + 1] == NULL)
@@ -59,32 +56,7 @@ int main(void)
 		}
 		else
 			puts(arr[i]);
-/*
-*		if (arr[i + 1] == NULL)
-*		{
-*			wrt = write(STDOUT_FILENO, arr[i], strlen(arr[i]));
-*			if (wrt == -1)
-*			{
-*				dprintf(STDERR_FILENO, "Error: write() failure\n");
-*				exit(EXIT_FAILURE);
-*			}
-*		}
-*		else
-*		{
-*			wrt = write(STDOUT_FILENO, arr[i], strlen(arr[i]));
-*			if (wrt == -1)
-*			{
-*				dprintf(STDERR_FILENO, "Error: write() failure\n");
-*				exit(EXIT_FAILURE);
-*			}
-*			wrt = write(STDOUT_FILENO, &nl, 1);
-*			if (wrt == -1)
-*			{
-*				dprintf(STDERR_FILENO, "Error: write() failure\n");
-*				exit(EXIT_FAILURE);
-*			}
-*		}
-*/	}
+	}
 	for (i = 0; arr[i]; i++)
 		free(arr[i]);
 	exit(EXIT_SUCCESS);
