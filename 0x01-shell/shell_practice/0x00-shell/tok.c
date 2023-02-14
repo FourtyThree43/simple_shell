@@ -5,7 +5,7 @@
 #define BUFFSIZE 1024
 
 /**
- * tokenize - tokeize a string
+ * tokenize - tokenize a string
  *
  * Return: array of tokens.
  */
@@ -20,6 +20,12 @@ char **tokenize()
 	fgets(str, BUFFSIZE, stdin);
 	token = strtok(str, s);
 
+	ret = malloc(sizeof(char *));
+	if (!ret)
+	{
+		dprintf(2, "Error: malloc() failure\n");
+		exit(EXIT_FAILURE);
+	}
 	while (token)
 	{
 		ret[i] = malloc(strlen(token) + 1);
@@ -32,6 +38,13 @@ char **tokenize()
 			(ret[i])[j] = token[j];
 		token = strtok(NULL, s);
 		i++;
+		/*increase the size of the array*/
+		ret = realloc(ret, (i + 1) * sizeof(char *));
+		if (!ret)
+		{
+			dprintf(2, "Error: realloc() failure\n");
+			exit(EXIT_FAILURE);
+		}
 	}
 
 	ret[i] = NULL;
@@ -59,5 +72,7 @@ int main(void)
 	}
 	for (i = 0; arr[i]; i++)
 		free(arr[i]);
+	free(arr);
+
 	exit(EXIT_SUCCESS);
 }
