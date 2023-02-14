@@ -14,20 +14,33 @@ char **tokenize()
 	char str[BUFFSIZE];
 	char *token;
 	char *s = " ";
-	char **ret;
+	char **ret = NULL;
 	int i = 0, j;
 
-	fgets(str, BUFFSIZE, stdin);
+	if(fgets(str, BUFFSIZE, stdin) == NULL)
+	{
+		dprintf(STDERR_FILENO, "Error: fgets() failure\n");
+		exit(EXIT_FAILURE);
+	}
+	if (str[strlen(str) - 1] == '\n')
+        str[strlen(str) - 1] = '\0';
 	token = strtok(str, s);
-
+#if 0
 	ret = malloc(sizeof(char *));
 	if (!ret)
 	{
 		dprintf(2, "Error: malloc() failure\n");
 		exit(EXIT_FAILURE);
 	}
+#endif
 	while (token)
 	{
+		ret = realloc(ret, sizeof(char *) * (i + 1));
+        if (ret == NULL)
+        {
+            dprintf(2, "Error: realloc() failure\n");
+            exit(EXIT_FAILURE);
+        }
 		ret[i] = malloc(strlen(token) + 1);
 		if (!(ret[i]))
 		{
