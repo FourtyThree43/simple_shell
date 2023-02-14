@@ -15,49 +15,29 @@ char **tokenize()
 	char *token;
 	char *s = " ";
 	char **ret = NULL;
-	int i = 0, j;
+	int i = 0;
 
-	if(fgets(str, BUFFSIZE, stdin) == NULL)
-	{
-		dprintf(STDERR_FILENO, "Error: fgets() failure\n");
-		exit(EXIT_FAILURE);
-	}
-	if (str[strlen(str) - 1] == '\n')
-        str[strlen(str) - 1] = '\0';
+	if (fgets(str, BUFFSIZE, stdin) == NULL)
+		dprintf(STDERR_FILENO, "Error: fgets() failure\n"), exit(EXIT_FAILURE);
+
 	token = strtok(str, s);
-#if 0
-	ret = malloc(sizeof(char *));
-	if (!ret)
-	{
-		dprintf(2, "Error: malloc() failure\n");
-		exit(EXIT_FAILURE);
-	}
-#endif
 	while (token)
 	{
 		ret = realloc(ret, sizeof(char *) * (i + 1));
-        if (ret == NULL)
-        {
-            dprintf(2, "Error: realloc() failure\n");
-            exit(EXIT_FAILURE);
-        }
+		if (ret == NULL)
+			dprintf(2, "Error: realloc() failure\n"), exit(EXIT_FAILURE);
+
 		ret[i] = malloc(strlen(token) + 1);
 		if (!(ret[i]))
-		{
-			dprintf(2, "Error: malloc() failure\n");
-			exit(EXIT_FAILURE);
-		}
-		for (j = 0; token[j]; j++)
-			(ret[i])[j] = token[j];
+			dprintf(2, "Error: malloc() failure\n"), exit(EXIT_FAILURE);
+
+		strcpy(ret[i], token);
 		token = strtok(NULL, s);
 		i++;
 		/*increase the size of the array*/
 		ret = realloc(ret, (i + 1) * sizeof(char *));
 		if (!ret)
-		{
-			dprintf(2, "Error: realloc() failure\n");
-			exit(EXIT_FAILURE);
-		}
+			dprintf(2, "Error: realloc() failure\n"), exit(EXIT_FAILURE);
 	}
 
 	ret[i] = NULL;
