@@ -53,3 +53,6 @@ dkms.conf
 
 # Test files
 test/
+
+#miscellaneous
+.vscode
