@@ -29,10 +29,14 @@ int main(int argc, char *argv[])
 			for (i = 0; line[i]; i++)
 				tmp[i] = line[i];
 //			tmplen = nread;
+			if (tmp != NULL) {
+				free(tmp);
+				tmp = NULL;
+			}
 			continue;
 		}
 		if (tmp != NULL){
-			for (i = 0; tmp[i]; i++)
+			for (i = 0; i < strlen(tmp); i++)
 			{
 				if ((tmp[i] == 92) && (tmp[i - 1] != 92))
 					continue;
