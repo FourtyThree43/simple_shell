@@ -4,7 +4,7 @@
 
 int main(void)
 {
-	char *argv[] = {"script.sh", NULL};
+	char *argv[] = {"/usr/bin/ls", NULL};
 	if (execve(argv[0], argv, NULL) == -1)
 		perror("Error");
 	printf("You shouldn't be seeing this.\n");
