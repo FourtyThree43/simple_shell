@@ -21,6 +21,11 @@ int main(int argc, char *argv[])
 			free(line);
 			exit(EXIT_SUCCESS);
 		}
+		if (nread == 1 && line[0] == 10)
+		{
+			printf("$ ");
+			continue;
+		}
 		if (line[nread - 2] == '\\'){
 			printf("> ");
 			tmp = malloc(nread);
@@ -28,11 +33,6 @@ int main(int argc, char *argv[])
 				exit(EXIT_FAILURE);
 			for (i = 0; line[i]; i++)
 				tmp[i] = line[i];
-//			tmplen = nread;
-			if (tmp != NULL) {
-				free(tmp);
-				tmp = NULL;
-			}
 			continue;
 		}
 		if (tmp != NULL){
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 			free(tmp);
 			tmp = NULL;
 		}
-		fwrite(line, nread, 1, stdout);
+		fwrite(line, 1, nread, stdout);
 		printf("$ ");
 	}
 	free(line);
