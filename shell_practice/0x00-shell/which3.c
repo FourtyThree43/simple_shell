@@ -49,11 +49,12 @@ int main(int ac, char **av)
 			puts("used abs");
 		}
 		else
+		{	
 			abs_path = 0;
 			puts("not abs");
+		}
 
-
-		if (stat(av[i], &st) == 0 && abs_path == 0)
+		if (stat(av[i], &st) == 0)
 			puts(pathname);
 		else
 			error = 1;
