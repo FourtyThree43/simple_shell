@@ -13,22 +13,21 @@ int main(int ac, char **av)
 	char *cwd, pathname[BUFFSIZE];
 	struct stat st;
 	int i = 1, error = 0, idx, tmp, j, abscheck = 0;
-	
+
 	memset(pathname, 0, 1024);
-	
+
 	if (ac < 2)
 	{
 		dprintf(2, "Usage: %s <filename> ...\n", av[0]);
 		return (1);
 	}
-	
-	/*str = "/home/kemboiray/ALX-Local/simple_shell/shell_practice/0x00-shell/";*/
+
 	cwd = get_current_dir_name();
-	
+
 	for (idx = 0; cwd[idx]; idx++)
 		pathname[idx] = cwd[idx];
 	pathname[idx++] = '/';
-	
+
 	while (av[i])
 	{
 		tmp = idx;
@@ -50,10 +49,13 @@ int main(int ac, char **av)
 		}
 		else
 			error = 1;
+
 		i++;
 	}
+
 	if (error == 1)
 		dprintf(2, " ");
+
 	free(cwd);
 	return (error);
 }
