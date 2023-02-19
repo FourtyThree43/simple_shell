@@ -3,63 +3,87 @@
 #include <string.h>
 
 /**
- * Struct definition for a directory node in the linked list.
+ * struct dir_node - A directory node in a linked list of directories
+ *
+ * @path: A pointer to a string representing a directory path
+ * @next: A pointer to the next dir_node in the linked list
  */
-typedef struct dir_node {
+typedef struct dir_node
+{
     char *path;
     struct dir_node *next;
 } dir_node;
 
 /**
- * Builds a linked list of the directories in the PATH environment variable.
+ * build_path_list - Builds a linked list of directories in the PATH variable
  *
- * Returns a pointer to the head of the linked list.
+ * Return: A pointer to the head of the linked list
  */
-dir_node *build_path_list(void) {
-    // Get the PATH environment variable
+dir_node *build_path_list(void)
+{
+    /* Get the PATH environment variable */
     char *path_str = getenv("PATH");
-    if (path_str == NULL) {
+
+    /* Allocate memory for the head of the linked list */
+    dir_node *head = malloc(sizeof(dir_node));
+    dir_node *cur;
+    dir_node *new_node;
+    char *path_token;
+    size_t path_len;
+
+    /* Check for errors */
+    if (path_str == NULL)
+    {
         fprintf(stderr, "Error: PATH environment variable not found\n");
         exit(EXIT_FAILURE);
     }
 
-    // Allocate memory for the head of the linked list
-    dir_node *head = malloc(sizeof(dir_node));
-    if (head == NULL) {
+    if (head == NULL)
+    {
         fprintf(stderr, "Error: malloc() failed\n");
         exit(EXIT_FAILURE);
     }
+
+    /* Initialize the head node of the linked list */
     head->path = NULL;
     head->next = NULL;
+    cur = head;
 
-    // Tokenize the PATH string
-    char *path_token = strtok(path_str, ":");
-    dir_node *cur = head;
-    while (path_token != NULL) {
-        // Allocate memory for a new directory node
-        dir_node *new_node = malloc(sizeof(dir_node));
-        if (new_node == NULL) {
+    /* Tokenize the PATH string and create a linked list of directories */
+    path_token = strtok(path_str, ":");
+    while (path_token != NULL)
+    {
+        /* Allocate memory for a new node in the linked list */
+        new_node = malloc(sizeof(dir_node));
+        if (new_node == NULL)
+        {
             fprintf(stderr, "Error: malloc() failed\n");
             exit(EXIT_FAILURE);
         }
 
-        // Copy the path string to the new node
-        size_t path_len = strlen(path_token);
+        /* Allocate memory for the path string in the new node */
+        path_len = strlen(path_token);
         new_node->path = malloc(path_len + 1);
-        if (new_node->path == NULL) {
+        if (new_node->path == NULL)
+        {
             fprintf(stderr, "Error: malloc() failed\n");
             exit(EXIT_FAILURE);
         }
-        strcpy(new_node->path, path_token);
-        new_node->next = NULL;
 
-        // Append the new node to the linked list
+        /* Copy the path string to the new node */
+        strcpy(new_node->path, path_token);
+
+        /* Set the next pointer of the current node to the new node */
+        new_node->next = NULL;
         cur->next = new_node;
+
+        /* Update the current node to be the new node */
         cur = new_node;
 
-        // Get the next token from the PATH string
+        /* Get the next token from the PATH string */
         path_token = strtok(NULL, ":");
     }
 
+    /* Return a pointer to the head of the linked list */
     return head;
 }
