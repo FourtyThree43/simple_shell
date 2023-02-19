@@ -1,8 +1,4 @@
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include "main.h"
 
 char *_getenv(const char *name)
 {
@@ -31,7 +27,7 @@ char *_getenv(const char *name)
 	free(buf);
 	return (NULL);
 }
-
+#if 0
 int main(int ac, char **av)
 {
 	int i = 0;
@@ -49,3 +45,4 @@ int main(int ac, char **av)
 
 	exit(0);
 }
+#endif

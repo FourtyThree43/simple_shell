@@ -1,26 +1,17 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
-#define BUFFSIZE 1024
+#include "main.h"
 
 /**
  * tokenize - tokenize a string
  *
  * Return: array of tokens.
  */
-char **tokenize()
+char **tokenize(char *str, const char *delim)
 {
-	char str[BUFFSIZE];
 	char *token;
-	char *s = " ";
 	char **ret = NULL;
 	int i = 0;
 
-	if (fgets(str, BUFFSIZE, stdin) == NULL)
-		dprintf(STDERR_FILENO, "Error: fgets() failure\n"), exit(EXIT_FAILURE);
-
-	token = strtok(str, s);
+	token = strtok(str, delim);
 	while (token)
 	{
 		ret = realloc(ret, sizeof(char *) * (i + 1));
@@ -32,7 +23,7 @@ char **tokenize()
 			dprintf(2, "Error: malloc() failure\n"), exit(EXIT_FAILURE);
 
 		strcpy(ret[i], token);
-		token = strtok(NULL, s);
+		token = strtok(NULL, delim);
 		i++;
 		/*increase the size of the array*/
 		ret = realloc(ret, (i + 1) * sizeof(char *));
@@ -43,7 +34,7 @@ char **tokenize()
 	ret[i] = NULL;
 	return (ret);
 }
-
+#if 0
 /**
  * main - entry point
  *
@@ -69,3 +60,4 @@ int main(void)
 
 	exit(EXIT_SUCCESS);
 }
+#endif
