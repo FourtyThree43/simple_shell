@@ -17,6 +17,7 @@ int _strlen(char *);
 int _strcmp(char *, char *);
 char *starts_with(const char *, const char *);
 char *_strcat(char *, char *);
+char *_strchr(char *s, char c);
 
 /* string1.c */
 char *_strcpy(char *, char *);
