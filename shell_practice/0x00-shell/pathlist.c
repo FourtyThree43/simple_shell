@@ -24,10 +24,9 @@ char **path_ptrs(void)
  *
  * Return: pointer to beginning of list.
  */
-path_list *build_list(void)
+path_list *build_list(char **ptrs)
 {
 	int i;
-	char **ptrs = path_ptrs();
 	path_list *head;
 	path_list *temp = NULL;
 	
@@ -51,32 +50,29 @@ path_list *build_list(void)
 /**
  * free_list - frees a singly-linked list
  * @head: pointer to first node
+ * @tok: switch to indicate whether tokenize() was used (1) or not (0)
  *
  * Return: void.
  */
-void free_list(path_list *head)
+void free_list(path_list *head, int tok)
 {
 	path_list *temp;
 //	char **ptr;
 	int i;
 
-#if 0	
-	for (temp = head; temp->dir_node; temp = temp->next)
-		if((temp->dir_node))
-			free(temp->dir_node);
-	if (&(head->dir_node))
-		free(&(head->dir_node));
-#endif
 //	ptr = &(head->dir_node);
 	while (head)
 	{
 		temp = head->next;
-		free(head->dir_node);
+		if (tok)
+			free(head->dir_node);
 		free(head);
 		head = temp;
 	}
 //	free(ptr);
 }
+
+#if 0
 /**
  * main - print linked list
  *
@@ -84,14 +80,15 @@ void free_list(path_list *head)
  */
 int main(void)
 {
-	path_list *head = build_list();
+	char **ptr = path_ptrs();
+	path_list *head = build_list(ptr);
 	path_list *temp = head;
 	while(temp)
 	{
 		puts(temp->dir_node);
 		temp = temp->next;
 	}
-	free_list(head);
+	free_list(head, 1);
 	return 0;
 }
- 
+#endif
