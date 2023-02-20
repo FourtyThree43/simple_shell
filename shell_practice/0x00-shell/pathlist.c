@@ -57,6 +57,7 @@ path_list *build_list(void)
 void free_list(path_list *head)
 {
 	path_list *temp;
+//	char **ptr;
 	int i;
 
 #if 0	
@@ -66,12 +67,15 @@ void free_list(path_list *head)
 	if (&(head->dir_node))
 		free(&(head->dir_node));
 #endif
+//	ptr = &(head->dir_node);
 	while (head)
 	{
 		temp = head->next;
+		free(head->dir_node);
 		free(head);
 		head = temp;
 	}
+//	free(ptr);
 }
 /**
  * main - print linked list
