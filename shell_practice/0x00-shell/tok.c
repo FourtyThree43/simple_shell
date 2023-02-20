@@ -42,7 +42,8 @@ char **tokenize(char *str, const char *delim)
 */
 int main(void)
 {
-	char **arr = tokenize();
+	char str[] = "raymond:kemboi\n";
+	char **arr = tokenize(str, ":");
 	int i;
 
 	for (i = 0; arr[i]; i++)

@@ -21,7 +21,7 @@ char *_getenv(const char *name)
 		if (strncmp(buf, environ[i], strlen(buf)) == 0)
 		{
 			free(buf);
-			return (environ[i]);
+			return (environ[i] + idx + 1);
 		}
 	}
 	free(buf);

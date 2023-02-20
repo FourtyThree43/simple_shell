@@ -10,12 +10,13 @@
 char **path_ptrs(void)
 {
 	char *path = _getenv("PATH");
-	char *str = path + 5;
+	char *str = path;
 	char **dir = tokenize(str, ":");
 	unsigned int i;
 	
 	if (!(path))
 		dprintf(2, "$PATH not found!\n"), exit(EXIT_FAILURE);
+
 	return (dir);
 }
  
@@ -33,7 +34,7 @@ path_list *build_list(void)
 	/* Whiteboarding */
 	if (!(head = malloc(sizeof(path_list))))
 		dprintf(2, "malloc() failure\n"), exit(EXIT_FAILURE);
-	head->dir_node = ptrs[0] + 5;
+	head->dir_node = ptrs[0];
 	head->next = NULL;
 	temp = head;
 	for (i = 1; ptrs[i]; i++)
@@ -47,34 +48,37 @@ path_list *build_list(void)
 	return (head);
 }
  
- /**
-  * free_list - frees a singly-linked list
-  * @head: pointer to first node
-  *
-  * Return: void.
-  */
-  void free_list(path_list *head)
- {
+/**
+ * free_list - frees a singly-linked list
+ * @head: pointer to first node
+ *
+ * Return: void.
+ */
+void free_list(path_list *head)
+{
 	path_list *temp;
-	
-	if (!(head->dir_node))
-		free(head->dir_node);
+	int i;
+
+#if 0	
+	for (temp = head; temp->dir_node; temp = temp->next)
+		if((temp->dir_node))
+			free(temp->dir_node);
+	if (&(head->dir_node))
+		free(&(head->dir_node));
+#endif
 	while (head)
 	{
 		temp = head->next;
-		if (!head)
-			free(head);
+		free(head);
 		head = temp;
-		if (!(head->dir_node))
-			free(head->dir_node);
 	}
- }
- /**
-  * main - print linked list
-  *
-  * Return: 0.
-  */
- int main(void)
+}
+/**
+ * main - print linked list
+ *
+ * Return: 0.
+ */
+int main(void)
 {
 	path_list *head = build_list();
 	path_list *temp = head;

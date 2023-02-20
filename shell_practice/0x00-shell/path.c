@@ -10,7 +10,7 @@
  void print_path(void)
  {
 	 char *path = _getenv("PATH");
-	 char *str = path + 5;
+	 char *str = path;
 	 char **dir = tokenize(str, ":");
 	 unsigned int i;
 	
