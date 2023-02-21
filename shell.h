@@ -11,6 +11,7 @@
 #include <limits.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <stdarg.h>
 
 /* string.c */
 int _strlen(char *);
@@ -24,6 +25,7 @@ char *_strcpy(char *, char *);
 char *_strdup(const char *);
 void _puts(char *);
 int _putchar(char);
+int _sprintf(char *str, const char *format, ...);
 
 /* mem_mgt.c */
 char *_memset(char *, char, unsigned int);

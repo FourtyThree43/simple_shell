@@ -2,8 +2,67 @@
 #include <stdlib.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdarg.h>
 
 extern char **environ;
+
+int _sprintf(char *str, const char *format, ...) 
+{ 
+    va_list args;
+    int i = 0;
+  
+    va_start(args, format); 
+    while (*format) 
+    { 
+        // If the format specifier is encountered 
+        if (*format == '%') 
+        { 
+            format++; 
+            switch (*format) 
+            { 
+                case 'd': 
+                { 
+                    int arg = va_arg(args, int); 
+                    int j = 0, k = arg; 
+  
+                    // Reverse the number 
+                    while (k) 
+                    { 
+                        str[i++] = (k % 10) + '0'; 
+                        k /= 10; 
+                        j++; 
+                    } 
+  
+                    // Reverse the string 
+                    for (j = j - 1; j >= 0; j--, i++) 
+                        str[i] = str[i - j - 1]; 
+                    break; 
+                } 
+  
+                case 's': 
+                { 
+                    char *arg = va_arg(args, char *); 
+                    int j = 0; 
+  
+                    // Copy the string 
+                    while (arg[j] != '\0') 
+                        str[i++] = arg[j++]; 
+                    break; 
+                } 
+            } 
+        } 
+        else
+            str[i++] = *format; 
+  
+        format++; 
+    } 
+    va_end(args); 
+  
+    // Add null terminator 
+    str[i] = '\0'; 
+  
+    return i; 
+}
 
 /**
  * _setenv - set an environment variable
@@ -23,7 +82,7 @@ int _setenv(const char *name, const char *value, int overwrite)
             if (overwrite) { 
                 // Build the string in the format "name=value" 
                 char *str = (char *)malloc(strlen(name) + strlen(value) + 2); 
-                sprintf(str, "%s=%s", name, value); 
+                _sprintf(str, "%s=%s", name, value); 
   
                 // Replace the existing string with the new one 
                 environ[i] = str; 
@@ -36,7 +95,7 @@ int _setenv(const char *name, const char *value, int overwrite)
   
     // Variable not found, so add it 
     environ[i] = (char *)malloc(strlen(name) + strlen(value) + 2); 
-    sprintf(environ[i], "%s=%s", name, value); 
+    _sprintf(environ[i], "%s=%s", name, value); 
     return 0; 
 }
 

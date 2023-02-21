@@ -46,8 +46,8 @@ char *_strdup(const char *str)
 }
 
 /**
- *_puts - prints an input string
- *@str: the string to be printed
+ * _puts - prints an input string
+ * @str: the string to be printed
  *
  * Return: Nothing
  */
@@ -65,23 +65,77 @@ void _puts(char *str)
 }
 
 /**
- * _putchar - writes the character c to stdout
+ *_putchar - writes the character c to stdout
  * @c: The character to print
- *
  * Return: On success 1.
  * On error, -1 is returned, and errno is set appropriately.
  */
 int _putchar(char c)
 {
-	static int i;
-	static char buf[WRITE_BUF_SIZE];
+	return (write(1, &c, 1));
+}
 
-	if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
+/**
+ * _sprintf - implementation of sprintf
+ * @str: string
+ * @format: format specifier
+ *
+ * Return: number of characters printed.
+*/
+int _sprintf(char *str, const char *format, ...)
+{
+	va_list args;
+	int i = 0;
+
+	va_start(args, format);
+	while (*format)
 	{
-		write(1, buf, i);
-		i = 0;
+		/* If the format specifier is encountered*/
+		if (*format == '%')
+		{
+			format++;
+			switch (*format)
+			{
+				case 'd':
+				{
+					int arg = va_arg(args, int);
+					int j = 0, k = arg;
+
+					/* Reverse the number*/
+					while (k)
+					{
+						str[i++] = (k % 10) + '0';
+						k /= 10;
+						j++;
+					}
+
+					/* Reverse the string*/
+					for (j = j - 1; j >= 0; j--, i++)
+						str[i] = str[i - j - 1];
+					break;
+				}
+
+				case 's':
+				{
+					char *arg = va_arg(args, char *);
+					int j = 0;
+
+					/* Copy the string*/
+					while (arg[j] != '\0')
+						str[i++] = arg[j++];
+					break;
+				}
+			}
+		}
+		else
+			str[i++] = *format;
+
+		format++;
 	}
-	if (c != BUF_FLUSH)
-		buf[i++] = c;
-	return (1);
+	va_end(args);
+
+	/* Add null terminator */
+	str[i] = '\0';
+
+	return i;
 }
