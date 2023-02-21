@@ -14,7 +14,7 @@ int main(int ac, char **av)
 	struct stat st;
 	int i = 1, error = 0, idx, tmp, j, abscheck = 0;
 
-	memset(pathname, 0, 1024);
+	memset(pathname, 0, BUFFSIZE);
 
 	if (ac < 2)
 	{

@@ -16,7 +16,7 @@
 /* string.c */
 int _strlen(char *);
 int _strcmp(char *, char *);
-char *_strstr(char *haystack, char *needle)
+char *_strstr(char *haystack, char *needle);
 char *_strcat(char *, char *);
 char *_strchr(char *s, char c);
 
@@ -32,5 +32,8 @@ char *_memset(char *, char, unsigned int);
 char *_memcpy(char *dest, char *src, unsigned int n);
 void *_realloc(void *, unsigned int, unsigned int);
 void *_calloc(unsigned int nmemb, unsigned int size);
+
+/* tok.c */
+char **tokenize(char *str, const char *delim);
 
 #endif

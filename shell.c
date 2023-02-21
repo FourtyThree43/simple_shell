@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -14,15 +15,16 @@ int main(void)
 	ssize_t nread;
 	pid_t id;
 	int status, i;
-	
+
 	printf("$ ");
-	while((nread = getline(&arg, &len, stdin)) != -1)
+	while ((nread = getline(&arg, &len, stdin)) != -1)
 	{
 		if (strcmp(arg, "exit\n") == 0)
 			break;
 		arg[nread - 1] = '\0';
 		argv = tokenize(arg, " ");
-		if ((id = fork()) == -1)
+		id = fork();
+		if (id == -1)
 		{
 			perror("Error");
 			for (i = 0; argv[i]; i++)
