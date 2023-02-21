@@ -38,7 +38,7 @@ int _setenv(const char *name, const char *value, int overwrite)
 				strcpy(new_env, name);
 				strcat(new_env, "=");
 				strcat(new_env, value);
-				free(environ[i]);
+/*				free(environ[i]);*/
 				environ[i] = new_env;
 			}
 			return 0;
