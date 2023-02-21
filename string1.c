@@ -137,5 +137,5 @@ int _sprintf(char *str, const char *format, ...)
 	/* Add null terminator */
 	str[i] = '\0';
 
-	return i;
+	return (i);
 }
