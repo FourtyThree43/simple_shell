@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include "temp/tok.c"
+#include "temp/string1.c"
 
 void _error(char ***argv, char **arg);
 
@@ -25,7 +26,7 @@ int main(int ac __attribute__((unused)), char **av)
 	pid_t id;
 	int status, i;
 
-	printf("$ ");
+	_puts("$ ");
 	while ((nread = getline(&arg, &len, stdin)) != -1)
 	{
 		if (strcmp(arg, "exit\n") == 0)
@@ -33,8 +34,8 @@ int main(int ac __attribute__((unused)), char **av)
 		if (strcmp(arg, "env\n") == 0)
 		{
 			for (i = 0; environ[i]; i++)
-				puts(environ[i]);
-			printf("$ ");
+				_puts(environ[i]), _putchar('\n');
+			_puts("$ ");
 			continue;
 		}
 		arg[nread - 1] = '\0';
@@ -60,7 +61,7 @@ int main(int ac __attribute__((unused)), char **av)
 			for (i = 0; argv[i]; i++)
 				free(argv[i]);
 			free(argv);
-			printf("$ ");
+			_puts("$ ");
 		}
 	}
 	free(arg);
