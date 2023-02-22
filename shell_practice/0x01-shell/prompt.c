@@ -1,12 +1,11 @@
-#include <stdio.h>
 #include "shell.h"
 
-void print_prompt1(void)
+/**
+ * print_prompt - Print the shell prompt
+ */
+void print_prompt(void)
 {
-	fprintf(stderr, "$ ");
-}
+	char *prompt = "$ ";
 
-void print_prompt2(void)
-{
-	fprintf(stderr, "> ");
+	write(STDOUT_FILENO, prompt, _strlen(prompt));
 }

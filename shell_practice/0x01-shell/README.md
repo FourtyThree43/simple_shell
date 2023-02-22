@@ -11,11 +11,11 @@ The project is organized as follows:
 ├── README.md
 ├── man_1_simple_shell
 ├── shell.h
-├── simple_shell.c
-├── built_ins
-│ ├── exit.c
-│ ├── env.c
-│ └── ...
+├── main.c
+├── built_ins.c
+│ ├── shell_exit
+│ ├── shell_cd
+│ └── shell_env
 ├── error_handling
 │ ├── error_handling.c
 │ ├── exit.c
@@ -25,14 +25,34 @@ The project is organized as follows:
 │ ├── _strdup.c
 │ └── ...
 └── execute
-├── execute.c
-├── fork_and_execute.c
-└── ...
+  ├── execute.c
+  ├── fork_and_execute.c
+  └── ...
 
 
-The `AUTHORS` file lists the contributors to the project. The `README.md` file you are currently reading is a brief overview of the project. The `man_1_simple_shell` file is the man page for the shell. The `shell.h` file contains function prototypes and includes all necessary headers. The `simple_shell.c` file contains the main function for the shell.
+`AUTHORS` file lists the contributors to the project. 
 
-The `built_ins` folder contains files for the built-in functions of the shell, such as `exit` and `env`. The `error_handling` folder contains files for error handling functions, such as `error_handling` and `exit`. The `helpers` folder contains files for helper functions, such as `_strtok` and `_strdup`. Finally, the `execute` folder contains files for executing commands, such as `execute` and `fork_and_execute`.
+`README.md` file you are currently reading is a brief overview of the project. 
+
+`man_1_simple_shell` file is the man page for the shell.
+
+`shell.h`: a header file that includes all the necessary libraries, function prototypes, and global variables.
+
+`main.c`: the main file that contains the loop for getting the user input, parsing the input, and executing the command.
+
+`prompt.c`: a file that handles the prompt display for the shell.
+
+`helpers.c`: a file that contains helper functions for the shell, such as string manipulation functions and functions for printing error messages.
+
+`builtins.c`: a file that contains the implementations of the built-in commands (cd, exit, env).
+
+`path.c`: a file that contains functions for handling the PATH environment variable and searching for 
+executables in the directories listed in PATH.
+
+`execute.c`: a file that contains the functions for executing the non-built-in commands.
+
+`Makefile`: a file that specifies the compilation rules for the shell.
+
 
 ## Usage
 
