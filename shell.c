@@ -7,6 +7,7 @@
 #include <sys/wait.h>
 #include "temp/tok.c"
 #include "temp/string1.c"
+#include "temp/string.c"
 
 void _error(char ***argv, char **arg);
 
@@ -14,10 +15,11 @@ void _error(char ***argv, char **arg);
  * main - implements a simple shell
  * @ac: argument count
  * @av: argument vector
+ * @ev: environment
  *
  * Return: EXIT_SUCCESS.
  */
-int main(int ac __attribute__((unused)), char **av)
+int main(int ac __attribute__((unused)), char **av, char **ev)
 {
 	char *arg = NULL;
 	char **argv;
@@ -29,15 +31,8 @@ int main(int ac __attribute__((unused)), char **av)
 	_puts("$ ");
 	while ((nread = getline(&arg, &len, stdin)) != -1)
 	{
-		if (strcmp(arg, "exit\n") == 0)
+		if (_strcmp(arg, "exit\n") == 0)
 			break;
-		if (strcmp(arg, "env\n") == 0)
-		{
-			for (i = 0; environ[i]; i++)
-				_puts(environ[i]), _putchar('\n');
-			_puts("$ ");
-			continue;
-		}
 		arg[nread - 1] = '\0';
 		argv = tokenize(arg, " ");
 		id = fork();
@@ -49,7 +44,7 @@ int main(int ac __attribute__((unused)), char **av)
 		if (id == 0)
 		{
 
-			if (execve(argv[0], argv, NULL) == -1)
+			if (execve(argv[0], argv, ev) == -1)
 			{
 				perror(av[0]);
 				_error(&argv, &arg);
