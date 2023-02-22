@@ -21,6 +21,13 @@ int main(void)
 	{
 		if (strcmp(arg, "exit\n") == 0)
 			break;
+        if (strcmp(arg, "env\n") == 0)
+        {
+            for (i = 0; environ[i]; i++)
+                puts(environ[i]);
+            printf("$ ");
+            continue;
+        }
 		arg[nread - 1] = '\0';
 		argv = tokenize(arg, " ");
 		id = fork();
