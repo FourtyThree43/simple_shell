@@ -1,4 +1,4 @@
-#include "../shell.h"
+#include "shell.h"
 
 /**
  * _strcpy - copies a string
@@ -75,67 +75,4 @@ int _putchar(char c)
 	return (write(1, &c, 1));
 }
 
-/**
- * _sprintf - implementation of sprintf
- * @str: string
- * @format: format specifier
- *
- * Return: number of characters printed.
-*/
-int _sprintf(char *str, const char *format, ...)
-{
-	va_list args;
-	int i = 0;
 
-	va_start(args, format);
-	while (*format)
-	{
-		/* If the format specifier is encountered*/
-		if (*format == '%')
-		{
-			format++;
-			switch (*format)
-			{
-				case 'd':
-				{
-					int arg = va_arg(args, int);
-					int j = 0, k = arg;
-
-					/* Reverse the number*/
-					while (k)
-					{
-						str[i++] = (k % 10) + '0';
-						k /= 10;
-						j++;
-					}
-
-					/* Reverse the string*/
-					for (j = j - 1; j >= 0; j--, i++)
-						str[i] = str[i - j - 1];
-					break;
-				}
-
-				case 's':
-				{
-					char *arg = va_arg(args, char *);
-					int j = 0;
-
-					/* Copy the string*/
-					while (arg[j] != '\0')
-						str[i++] = arg[j++];
-					break;
-				}
-			}
-		}
-		else
-			str[i++] = *format;
-
-		format++;
-	}
-	va_end(args);
-
-	/* Add null terminator */
-	str[i] = '\0';
-
-	return (i);
-}

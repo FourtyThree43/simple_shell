@@ -1,13 +1,15 @@
-#include "../shell.h"
+#include "shell.h"
 
 /**
  * tokenize - tokenize a string
+ * @str: string
+ * @delim: delimiter
  *
  * Return: array of tokens.
  */
 char **tokenize(char *str, const char *delim)
 {
-	char *token;
+	char *token = NULL;
 	char **ret = NULL;
 	int i = 0;
 
@@ -16,19 +18,19 @@ char **tokenize(char *str, const char *delim)
 	{
 		ret = realloc(ret, sizeof(char *) * (i + 1));
 		if (ret == NULL)
-			dprintf(2, "Error: realloc() failure\n"), exit(EXIT_FAILURE);
+			return (NULL);
 
-		ret[i] = malloc(strlen(token) + 1);
+		ret[i] = malloc(_strlen(token) + 1);
 		if (!(ret[i]))
-			dprintf(2, "Error: malloc() failure\n"), exit(EXIT_FAILURE);
+			return (NULL);
 
-		strcpy(ret[i], token);
+		_strcpy(ret[i], token);
 		token = strtok(NULL, delim);
 		i++;
 		/*increase the size of the array*/
 		ret = realloc(ret, (i + 1) * sizeof(char *));
 		if (!ret)
-			dprintf(2, "Error: realloc() failure\n"), exit(EXIT_FAILURE);
+			return (NULL);
 	}
 
 	ret[i] = NULL;

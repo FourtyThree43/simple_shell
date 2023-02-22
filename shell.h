@@ -1,5 +1,6 @@
 #ifndef _SHELL_H_
 #define _SHELL_H_
+#define _GNU_SOURCE
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,7 +34,13 @@ char *_memcpy(char *dest, char *src, unsigned int n);
 void *_realloc(void *, unsigned int, unsigned int);
 void *_calloc(unsigned int nmemb, unsigned int size);
 
+/* printenviron.c */
+void printenviron(void);
+
 /* tok.c */
 char **tokenize(char *str, const char *delim);
+
+/* _error.c */
+void _error(char ***argv, char **arg);
 
 #endif
