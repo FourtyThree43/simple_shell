@@ -5,8 +5,15 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include "tok.c"
+#include "temp/tok.c"
 
+void _error(char ***argv, char **arg);
+
+/**
+ * main - implements a simple shell
+ *
+ * Return: EXIT_SUCCESS.
+ */
 int main(void)
 {
 	char *arg = NULL;
@@ -32,26 +39,12 @@ int main(void)
 		argv = tokenize(arg, " ");
 		id = fork();
 		if (id == -1)
-		{
-			perror("Error");
-			for (i = 0; argv[i]; i++)
-				free(argv[i]);
-			free(argv);
-			free(arg);
-			exit(EXIT_FAILURE);
-		}
+			_error(&argv, &arg);
 		if (id == 0)
 		{
 
 			if (execve(argv[0], argv, NULL) == -1)
-			{
-				perror("Error");
-				for (i = 0; argv[i]; i++)
-					free(argv[i]);
-				free(argv);
-				free(arg);
-				exit(EXIT_FAILURE);
-			}
+				_error(&argv, &arg);
 		}
 		else
 		{
@@ -64,4 +57,23 @@ int main(void)
 	}
 	free(arg);
 	exit(EXIT_SUCCESS);
+}
+
+/**
+ * _error - prints system error message and frees alloc'd pointers
+ * @argv: pointer to a pointer to an array of pointers
+ * @arg: pointer to a pointer to an array of characters
+ *
+ * Return: void.
+ */
+void _error(char ***argv, char **arg)
+{
+	int i;
+
+	perror("Error");
+	for (i = 0; argv[i]; i++)
+		free(argv[i]);
+	free(argv);
+	free(arg);
+	exit(EXIT_FAILURE);
 }
