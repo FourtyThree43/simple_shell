@@ -8,7 +8,7 @@ simple_shell - a simple UNIX command line interpreter
 
 # DESCRIPTION
 
-This is a simple UNIX command line interpreter that is capable of executing basic commands and scripts. It was written as part of a Holberton School project.
+This is a simple UNIX command line interpreter that is capable of executing basic commands and scripts. It was written as part of a ALX School project.
 
 # OPTIONS
 

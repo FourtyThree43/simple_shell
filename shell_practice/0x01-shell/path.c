@@ -12,7 +12,7 @@ char *get_path(char **env)
 
 	for (i = 0; env[i] != NULL; i++)
 	{
-		if (_strncmp(env[i], "PATH=", 5) == 0)
+		if (strncmp(env[i], "PATH=", 5) == 0)
 			return (env[i] + 5);
 	}
 

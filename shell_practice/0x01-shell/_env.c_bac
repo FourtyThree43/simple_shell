@@ -1,0 +1,17 @@
+#include "shell.h"
+
+/**
+ * _env - prints the current environment
+ * @env: array of environment variables
+ *
+ * Return: always returns 0
+ */
+int _env(char **env)
+{
+    int i;
+
+    for (i = 0; env[i]; i++)
+        _puts(env[i]), _putchar('\n');
+
+    return (0);
+}

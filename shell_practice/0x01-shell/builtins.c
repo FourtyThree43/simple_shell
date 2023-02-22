@@ -31,7 +31,11 @@ int shell_cd(char **args)
 		dir = _getenv("HOME");
 
 	if (chdir(dir) == -1)
+	{
 		_puterror("cd: can't cd to ");
+		return (1);
+	}
+
 	return (1);
 }
 
@@ -41,7 +45,7 @@ int shell_cd(char **args)
  *
  * Return: Always returns 1
  */
-int shell_env(char **args)
+int shell_env(void)
 {
 	int i;
 
@@ -49,4 +53,20 @@ int shell_env(char **args)
 		_puts(environ[i]);
 
 	return (1);
+}
+
+/**
+ * _env - prints the current environment
+ * @env: array of environment variables
+ *
+ * Return: always returns 0
+ */
+int _env(char **env)
+{
+	int i;
+
+	for (i = 0; env[i]; i++)
+		_puts(env[i]), _putchar('\n');
+
+	return (0);
 }

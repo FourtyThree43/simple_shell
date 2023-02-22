@@ -10,11 +10,11 @@ int check_for_builtin(char **args)
 {
 	if (args == NULL || *args == NULL)
 		return (0);
-	if (_strcmp(*args, "exit") == 0)
+	if (strcmp(*args, "exit") == 0)
 		return (1);
-	if (_strcmp(*args, "cd") == 0)
+	if (strcmp(*args, "cd") == 0)
 		return (1);
-	if (_strcmp(*args, "env") == 0)
+	if (strcmp(*args, "env") == 0)
 		return (1);
 	return (0);
 }
@@ -35,62 +35,45 @@ int execute(char **args, char *path)
 
 	if (check_for_builtin(args))
 		return (1);
+
 	tokens = tokenize(path, ":");
 	command = args[0];
-	if (access(command, F_OK | X_OK) == 0)
-	{
-		pid = fork();
-		if (pid == -1)
-			perror("Error");
-		if (pid == 0)
-		{
-			if (execve(command, args, environ) == -1)
-			{
-				_puterror("Error: Cannot execute command\n");
-				free_tokens(tokens);
-				exit(EXIT_FAILURE);
-			}
-		}
-		else
-			wait(&status);
-	}
-	else
-	{
-		int i = 0;
-		char *dir;
 
-		while (tokens[i] != NULL)
+	struct stat sb;
+	int i = 0;
+	char *dir;
+
+	while (tokens[i] != NULL)
+	{
+		dir = malloc(_strlen(tokens[i]) + _strlen(command) + 2);
+		_strcpy(dir, tokens[i]);
+		_strcat(dir, "/");
+		_strcat(dir, command);
+		if (stat(dir, &sb) == 0 && sb.st_mode & S_IXUSR)
 		{
-			dir = malloc(_strlen(tokens[i]) + _strlen(command) + 2);
-			_strcpy(dir, tokens[i]);
-			_strcat(dir, "/");
-			_strcat(dir, command);
-			if (access(dir, F_OK | X_OK) == 0)
+			pid = fork();
+			if (pid == -1)
+				perror("Error");
+			if (pid == 0)
 			{
-				pid = fork();
-				if (pid == -1)
-					perror("Error");
-				if (pid == 0)
+				if (execve(dir, args, environ) == -1)
 				{
-					if (execve(dir, args, environ) == -1)
-					{
-						_puterror("Error: Cannot execute command\n");
-						free_tokens(tokens);
-						free(dir);
-						exit(EXIT_FAILURE);
-					}
+					_puterror("Error: Cannot execute command\n");
+					free_tokens(tokens);
+					free(dir);
+					exit(EXIT_FAILURE);
 				}
-				else
-					wait(&status);
-				free(dir);
-				free_tokens(tokens);
-				return (1);
 			}
-			i++;
+			else
+				wait(&status);
 			free(dir);
+			free_tokens(tokens);
+			return (1);
 		}
-		_puterror("Error: Command not found\n");
+		i++;
+		free(dir);
 	}
+	_puterror("Error: Command not found\n");
 	free_tokens(tokens);
 	return (0);
 }
@@ -113,7 +96,10 @@ char **tokenize(char *input, const char *delimiter)
 	{
 		tokens = realloc(tokens, (i + 2) * sizeof(char *));
 		if (tokens == NULL)
+		{
+			free_tokens(tokens);
 			return (NULL);
+		}
 		tokens[i] = token;
 		token = strtok(NULL, delimiter);
 		i++;
@@ -121,6 +107,7 @@ char **tokenize(char *input, const char *delimiter)
 	tokens[i] = NULL;
 	return (tokens);
 }
+
 
 /**
  * free_tokens - frees an array of tokens

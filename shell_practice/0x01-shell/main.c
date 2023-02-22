@@ -1,25 +1,36 @@
 #include "shell.h"
 
 /**
- * main - Entry point for the simple shell program
+ * main - Entry point for the shell
  *
  * Return: Always 0
  */
-int main(void)
+int main(int ac, char **av)
 {
-	char *line;
-	char **args;
-	int status;
+	char *line; /* Initialize to NULL */
+	char **args; /* Initialize to NULL */
+	int status = 1;
+	size_t bufsize = 0;
 
-	do {
-		print_prompt(); /*Display prompt to the user */
-		line = read_line(); /*Read user input */
-		args = parse_line(line); /* Parse the user input */
-		status = execute(args); /* Execute the command */
+	while (status)
+	{
+		print_prompt();
+		if (getline(&line, &bufsize, stdin) == -1) /* Check for EOF or error */
+		{
+			free(line);
+			break;
+		}
+		args = tokenize(line, " \n\r\t\a");
+		if (args == NULL || *args == NULL) /* Check for empty line */
+		{
+			free_tokens(args);
+			continue;
+		}
+		status = execute(args, get_path(environ));
+		free_tokens(args);
+	}
 
-		free(line);
-		free(args);
-	} while (status);
+	free(line); /* Free memory used for input line */
 
 	return (0);
 }

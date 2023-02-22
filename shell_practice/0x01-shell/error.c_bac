@@ -1,0 +1,30 @@
+#include "error.h"
+
+/**
+ * _puterror - writes an error message to standard error
+ * @str: the string to write
+ */
+void _puterror(char *str)
+{
+	size_t len = strlen(str);
+	ssize_t w = write(STDERR_FILENO, str, len);
+
+	if (w == -1)
+	{
+		char *msg = "Error: Cannot write to STDERR\n";
+		write(STDERR_FILENO, msg, strlen(msg));
+		exit(EXIT_FAILURE);
+	}
+}
+
+/**
+ * print_error - prints an error message with additional information
+ * @command: the command that was executed
+ * @message: the error message
+ */
+void print_error(char *command, char *message)
+{
+	char error_message[BUFSIZE];
+	int len = sprintf(error_message, "%s: %s\n", command, message);
+	_puterror(error_message);
+}

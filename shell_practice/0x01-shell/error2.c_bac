@@ -1,0 +1,73 @@
+#define BUFFER_SIZE 1024
+
+/**
+ * _putstring - writes a string to standard output
+ * @str: the string to write
+ */
+void _putstring(char *str)
+{
+	static char buffer[BUFFER_SIZE];
+	static int pos = 0;
+	int len = _strlen(str);
+
+	if (len > BUFFER_SIZE - pos)
+	{
+		write(STDOUT_FILENO, buffer, pos);
+		pos = 0;
+	}
+	_strcpy(buffer + pos, str);
+	pos += len;
+}
+
+/**
+ * _flush - flushes the output buffer
+ */
+void _flush()
+{
+	if (pos > 0)
+	{
+		write(STDOUT_FILENO, buffer, pos);
+		pos = 0;
+	}
+}
+
+
+/**
+ * _puterror - prints an error message to standard error
+ * @str: the error message to print
+ * @func_name: the name of the function where the error occurred
+ * @line_no: the line number where the error occurred
+ */
+void _puterror(char *str, char *func_name, int line_no)
+{
+	char *line_no_str;
+	char *err_msg;
+
+	err_msg = "Error: ";
+	_putstring(STDERR_FILENO, err_msg);
+	if (func_name != NULL)
+	{
+		_putstring(STDERR_FILENO, func_name);
+		_putstring(STDERR_FILENO, ": ");
+	}
+	if (line_no > 0)
+	{
+		line_no_str = int_to_str(line_no);
+		_putstring(STDERR_FILENO, "line ");
+		_putstring(STDERR_FILENO, line_no_str);
+		_putstring(STDERR_FILENO, ": ");
+		free(line_no_str);
+	}
+	_putstring(STDERR_FILENO, str);
+	_flush(STDERR_FILENO);
+}
+
+/**
+ * _puts - prints a string to standard output
+ * @str: the string to print
+ */
+void _puts(char *str)
+{
+    _putstring(str);
+    _flush();
+}

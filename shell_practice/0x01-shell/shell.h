@@ -33,12 +33,13 @@ void print_prompt(void);
 /* main.c */
 char *read_line(void);
 char **parse_line(char *line);
-void execute(char **args);
+int execute(char **args, char *path);
 
 /* builtins.c */
 int shell_exit(char **args);
 int shell_cd(char **args);
-int shell_env(char **args);
+/* int shell_env(char **args); */
+int _env(char **env);
 
 /* path.c */
 char *get_path(char **env);
@@ -46,7 +47,7 @@ void free_path_list(path_t *head);
 path_t *path_list(char *path);
 
 /* _getenv.c*/
-char *_getenv(const char *name)
+char *_getenv(char *name);
 
 /* execute.c */
 int execute(char **args, char *path);
@@ -63,5 +64,6 @@ char *_strcpy(char *dest, char *src);
 char *_strcat(char *dest, char *src);
 char *_strdup(char *str);
 int _strcmp(char *s1, char *s2);
+int _atoi(char *s);
 
 #endif

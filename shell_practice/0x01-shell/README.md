@@ -6,6 +6,7 @@ This is a simple shell project that was developed as part of a course.
 
 The project is organized as follows:
 
+```
 .
 ├── AUTHORS
 ├── README.md
@@ -28,7 +29,7 @@ The project is organized as follows:
   ├── execute.c
   ├── fork_and_execute.c
   └── ...
-
+```
 
 `AUTHORS` file lists the contributors to the project. 
 
@@ -58,7 +59,7 @@ executables in the directories listed in PATH.
 
 To use the simple shell, compile the files using `gcc -Wall -Werror -Wextra -pedantic *.c -o hsh`. Then, run the shell using `./hsh`.
 
-## Man Page Genaration.
+## Man Page.
 
 To generate a man page for the `simple_shell`, you can use the `ronn` utility. `ronn` allows you to write man pages in Markdown format and then convert them to man page format.
 
