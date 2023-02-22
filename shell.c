@@ -11,10 +11,12 @@ void _error(char ***argv, char **arg);
 
 /**
  * main - implements a simple shell
+ * @ac: argument count
+ * @av: argument vector
  *
  * Return: EXIT_SUCCESS.
  */
-int main(void)
+int main(int ac __attribute__((unused)), char **av)
 {
 	char *arg = NULL;
 	char **argv;
@@ -39,12 +41,18 @@ int main(void)
 		argv = tokenize(arg, " ");
 		id = fork();
 		if (id == -1)
+		{
+			perror(av[0]);
 			_error(&argv, &arg);
+		}
 		if (id == 0)
 		{
 
 			if (execve(argv[0], argv, NULL) == -1)
+			{
+				perror(av[0]);
 				_error(&argv, &arg);
+			}
 		}
 		else
 		{
@@ -60,7 +68,7 @@ int main(void)
 }
 
 /**
- * _error - prints system error message and frees alloc'd pointers
+ * _error - frees alloc'd pointers following system error
  * @argv: pointer to a pointer to an array of pointers
  * @arg: pointer to a pointer to an array of characters
  *
@@ -70,7 +78,6 @@ void _error(char ***argv, char **arg)
 {
 	int i;
 
-	perror("Error");
 	for (i = 0; argv[i]; i++)
 		free(argv[i]);
 	free(argv);
