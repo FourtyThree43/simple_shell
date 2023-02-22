@@ -9,7 +9,7 @@ The project is organized as follows:
 .
 ├── AUTHORS
 ├── README.md
-├── man_1_simple_shell
+├── simple_shell.1 (man page)
 ├── shell.h
 ├── main.c
 ├── built_ins.c
@@ -58,6 +58,19 @@ executables in the directories listed in PATH.
 
 To use the simple shell, compile the files using `gcc -Wall -Werror -Wextra -pedantic *.c -o hsh`. Then, run the shell using `./hsh`.
 
+## Man Page Genaration.
+
+To generate a man page for the `simple_shell`, you can use the `ronn` utility. `ronn` allows you to write man pages in Markdown format and then convert them to man page format.
+
+Once you have created the `simple_shell.1.md` file, run the following command to generate the man page:
+
+`ronn simple_shell.1.md`
+
+This will create a new file called `simple_shell.1`. You can view the man page by running the following command:
+
+`man ./simple_shell.1`
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
