@@ -16,7 +16,7 @@ int main(int ac __attribute__((unused)), char **av, char **ev)
 	pid_t id;
 	int status, i;
 
-	_puts("$ ");
+/*	_puts("$ "); */
 	while ((nread = getline(&arg, &len, stdin)) != -1)
 	{
 		if (_strspn(arg, " \n\r\t\a") == strlen(arg))
@@ -45,7 +45,7 @@ int main(int ac __attribute__((unused)), char **av, char **ev)
 			for (i = 0; argv[i]; i++)
 				free(argv[i]);
 			free(argv);
-			_puts("$ ");
+/*			_puts("$ ");*/
 		}
 	}
 	free(arg);
