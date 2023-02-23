@@ -21,8 +21,7 @@ int main(int ac __attribute__((unused)), char **av, char **ev)
 	{
 		if (_strspn(arg, " \n\r\t\a") == strlen(arg))
 		{
-			free(arg);
-			arg = NULL;
+			free(arg), arg = NULL;
 			continue;
 		}
 		if (_strcmp(arg, "exit\n") == 0)
@@ -31,13 +30,14 @@ int main(int ac __attribute__((unused)), char **av, char **ev)
 		argv = tokenize(arg, " ");
 		id = fork();
 		if (id == -1)
-			perror(av[0]), _error(&argv, &arg);
+			perror(av[0]), free_error(argv, arg);
 		if (id == 0)
 		{
 			if (_strcmp(arg, "env") == 0)
-				printenviron(), exit(1);
+				if (execve("/bin/env", argv, ev) == -1)
+					perror(av[0]), free_error(argv, arg);
 			if (execve(argv[0], argv, ev) == -1)
-				perror(av[0]), _error(&argv, &arg);
+				perror(av[0]), free_error(argv, arg);
 		}
 		else
 		{

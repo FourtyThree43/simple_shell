@@ -36,31 +36,3 @@ char **tokenize(char *str, const char *delim)
 	ret[i] = NULL;
 	return (ret);
 }
-#if 0
-/**
- * main - entry point
- *
- * Return: EXIT_SUCCESS.
-*/
-int main(void)
-{
-	char str[] = "raymond:kemboi\n";
-	char **arr = tokenize(str, ":");
-	int i;
-
-	for (i = 0; arr[i]; i++)
-	{
-		if (arr[i + 1] == NULL)
-		{
-			printf("%s", arr[i]);
-		}
-		else
-			puts(arr[i]);
-	}
-	for (i = 0; arr[i]; i++)
-		free(arr[i]);
-	free(arr);
-
-	exit(EXIT_SUCCESS);
-}
-#endif

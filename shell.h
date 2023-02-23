@@ -35,12 +35,12 @@ void *_realloc(void *, unsigned int, unsigned int);
 void *_calloc(unsigned int nmemb, unsigned int size);
 
 /* printenviron.c */
-void printenviron(void);
+void printenviron(char **ev);
 
 /* tok.c */
 char **tokenize(char *str, const char *delim);
 
 /* _error.c */
-void _error(char ***argv, char **arg);
+void free_error(char **argv, char *arg);
 
 #endif
