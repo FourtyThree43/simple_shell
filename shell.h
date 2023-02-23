@@ -26,7 +26,7 @@ char *_strcpy(char *, char *);
 char *_strdup(const char *);
 void _puts(char *);
 int _putchar(char);
-int _sprintf(char *str, const char *format, ...);
+unsigned int _strspn(char *s, char *accept);
 
 /* mem_mgt.c */
 char *_memset(char *, char, unsigned int);

@@ -10,8 +10,7 @@
  */
 int main(int ac __attribute__((unused)), char **av, char **ev)
 {
-	char *arg = NULL;
-	char **argv;
+	char *arg = NULL, **argv;
 	size_t len = 0;
 	ssize_t nread;
 	pid_t id;
@@ -20,6 +19,12 @@ int main(int ac __attribute__((unused)), char **av, char **ev)
 	_puts("$ ");
 	while ((nread = getline(&arg, &len, stdin)) != -1)
 	{
+		if (_strspn(arg, " \n\r\t\a") == strlen(arg))
+		{
+			free(arg);
+			arg = NULL;
+			continue;
+		}
 		if (_strcmp(arg, "exit\n") == 0)
 			break;
 		arg[nread - 1] = '\0';

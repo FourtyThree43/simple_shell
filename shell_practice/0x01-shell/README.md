@@ -47,8 +47,7 @@ The project is organized as follows:
 
 `builtins.c`: a file that contains the implementations of the built-in commands (cd, exit, env).
 
-`path.c`: a file that contains functions for handling the PATH environment variable and searching for 
-executables in the directories listed in PATH.
+`path.c`: a file that contains functions for handling the PATH environment variable and searching for executables in the directories listed in PATH.
 
 `execute.c`: a file that contains the functions for executing the non-built-in commands.
 
