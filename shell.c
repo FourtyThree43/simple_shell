@@ -16,7 +16,7 @@ int main(int ac __attribute__((unused)), char **av, char **ev)
 	pid_t id;
 	int status, i;
 
-	while (_puts("$ "), (nread = getline(&arg, &len, stdin)) != -1)
+	while ((nread = getline(&arg, &len, stdin)) != -1)
 	{
 		if (_strspn(arg, " \n\r\t\a") == strlen(arg))
 		{
