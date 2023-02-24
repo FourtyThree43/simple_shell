@@ -14,7 +14,7 @@ int main(int ac __attribute__((unused)), char **av, char **ev)
 	size_t len = 0;
 	ssize_t nread;
 	pid_t id;
-	int wstatus, status = 0, i;
+	int wstatus, status = EXIT_SUCCESS, i;
 
 	while ((nread = getline(&arg, &len, stdin)) != -1)
 	{
