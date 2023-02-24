@@ -14,7 +14,7 @@ int main(int ac __attribute__((unused)), char **av, char **ev)
 	size_t len = 0;
 	ssize_t nread;
 	pid_t id;
-	int status, i;
+	int wstatus, status, i;
 
 	while ((nread = getline(&arg, &len, stdin)) != -1)
 	{
@@ -40,12 +40,14 @@ int main(int ac __attribute__((unused)), char **av, char **ev)
 		}
 		else
 		{
-			wait(&status);
+			wait(&wstatus);
+			if (WIFEXITED(wstatus))
+				status = WEXITSTATUS(wstatus);
 			for (i = 0; argv[i]; i++)
 				free(argv[i]);
 			free(argv);
 		}
 	}
 	free(arg);
-	exit(EXIT_SUCCESS);
+	exit(status);
 }
