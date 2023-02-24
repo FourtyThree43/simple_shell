@@ -8,7 +8,8 @@
  */
 void cleaner2(char **ptr)
 {
-	for (int i = 0; ptr[i]; i++)
+	int i;
+	for (i = 0; ptr[i]; i++)
 		free((ptr[i]));
 	free(ptr);
 }
