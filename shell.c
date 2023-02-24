@@ -10,7 +10,7 @@
  */
 int main(int ac __attribute__((unused)), char **av, char **ev)
 {
-	char *arg = NULL, **argv;
+	char *arg = NULL, *ptr = NULL, **argv;
 	size_t len = 0;
 	ssize_t nread;
 	pid_t id;
@@ -32,10 +32,12 @@ int main(int ac __attribute__((unused)), char **av, char **ev)
 			perror(av[0]), free_error(argv, arg);
 		if (id == 0)
 		{
-			if (_strcmp(arg, "env") == 0)
-				if (execve("/bin/env", argv, ev) == -1)
-					perror(av[0]), free_error(argv, arg);
-			if (execve(argv[0], argv, ev) == -1)
+			ptr = NULL;
+			if (argv[0][0] != '/')
+				ptr = which(argv[0]);
+			if (ptr == NULL)
+				ptr = argv[0];
+			if (execve(ptr, argv, ev) == -1)
 				perror(av[0]), free_error(argv, arg);
 		}
 		else
@@ -48,6 +50,5 @@ int main(int ac __attribute__((unused)), char **av, char **ev)
 			free(argv);
 		}
 	}
-	free(arg);
-	exit(status);
+	free(arg), exit(status);
 }

@@ -1,6 +1,7 @@
 #ifndef _SHELL_H_
 #define _SHELL_H_
 #define _GNU_SOURCE
+#define MAXLEN 4096
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -40,7 +41,16 @@ void printenviron(char **ev);
 /* tok.c */
 char **tokenize(char *str, const char *delim);
 
-/* _error.c */
+/* which.c */
+char *which(char *filename);
+
+/* _getenv.c */
+char *_getenv(const char *name);
+
+/* cleaner.c */
 void free_error(char **argv, char *arg);
+
+/* cleaner2.c */
+void cleaner2(char **ptr);
 
 #endif
