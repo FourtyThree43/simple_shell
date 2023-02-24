@@ -5,7 +5,7 @@
  *
  * Return: Always 0
  */
-int main(int ac, char **av)
+int main(void)
 {
 	char *line; /* Initialize to NULL */
 	char **args; /* Initialize to NULL */
