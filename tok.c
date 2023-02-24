@@ -27,11 +27,11 @@ char **tokenize(char *str, const char *delim)
 		_strcpy(ret[i], token);
 		token = strtok(NULL, delim);
 		i++;
-		/*increase the size of the array*/
-		ret = realloc(ret, (i + 1) * sizeof(char *));
-		if (!ret)
-			return (NULL);
 	}
+	/*increase the size of the array*/
+	ret = realloc(ret, (i + 1) * sizeof(char *));
+	if (!ret)
+		return (NULL);
 
 	ret[i] = NULL;
 	return (ret);

@@ -25,12 +25,12 @@ char **tokenize(char *str, const char *delim)
 		strcpy(ret[i], token);
 		token = strtok(NULL, delim);
 		i++;
-		/*increase the size of the array*/
-/*		ret = realloc(ret, (i + 1) * sizeof(char *));
-		if (!ret)
-			dprintf(2, "Error: realloc() failure\n"), exit(EXIT_FAILURE);
-*/	}
+	}
 
+	/*increase the size of the array*/
+	ret = realloc(ret, (i + 1) * sizeof(char *));
+	if (!ret)
+		dprintf(2, "Error: realloc() failure\n"), exit(EXIT_FAILURE);
 	ret[i] = NULL;
 	return (ret);
 }

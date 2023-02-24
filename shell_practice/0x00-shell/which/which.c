@@ -11,7 +11,7 @@
 int main(int ac, char **av)
 {
 	struct stat st;
-	int stat_ret, i, j, extat = 0;
+	int stat_ret, i, j, k, extat = 0;
 	char buf[BUFFSIZE], *temp, **tempath, **path;
 
 	if (ac < 2)
@@ -32,20 +32,22 @@ int main(int ac, char **av)
 				extat = 1;
 				continue;
 			}
-			tempath = tokenize(av[i], "/");
+			memset(buf, 0, BUFFSIZE);
+			strcpy(buf, av[i]);
+			tempath = tokenize(buf, "/");
 			if (!tempath)
 			{
 				cleaner(path);
 				dprintf(2, "Memory allocation error!\n"), exit(1);
 			}
-			for (j = 0; tempath[j]; j++)
+			for (k = 0; tempath[k]; k++)
 				;
 			for(j = 0; path[j]; j++)
 			{
 				memset(buf, 0, BUFFSIZE);
 				strcpy(buf, path[j]);
 				strcat(buf, "/");
-				strcat(buf, tempath[j - 1]);
+				strcat(buf, tempath[k - 1]);
 				stat_ret = stat(buf, &st);
 				if (stat_ret == 0)
 				{
