@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * printenviron - print the current environment
+ * print_env - print the current environment
  * @ev: smth.
  * Return: void.
  */
