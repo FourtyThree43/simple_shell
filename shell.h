@@ -57,10 +57,8 @@ char *which(char *filename);
 /* get_env.c */
 char *_getenv(const char *name);
 
-/* cleaner.c */
+/* free.c */
 void free_error(char **argv, char *arg);
-
-/* cleaner2.c */
 void free_tok(char **ptr);
 
 #endif
