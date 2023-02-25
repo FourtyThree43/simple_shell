@@ -27,12 +27,12 @@ char *which(char *filename)
 		stat_ret = stat(buf, &st);
 		if (stat_ret == 0)
 		{
-			cleaner2(path);
+			free_tok(path);
 			ret = &(buf[0]);
 			return (ret);
 		}
 	}
 	if (stat_ret == -1)
-		cleaner2(path);
+		free_tok(path);
 	return (NULL);
 }

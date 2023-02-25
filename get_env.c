@@ -14,14 +14,14 @@ char *_getenv(const char *name)
 	idx = strlen(name);
 	buf = calloc(idx + 2, sizeof(char));
 	if (!(buf))
-		dprintf(2, "calloc() failure\n"), exit(-1);
+		dprintf(STDERR_FILENO, "calloc() failure\n"), exit(-1);
 
 	for (i = 0; environ[i]; i++)
 	{
 		if (!(strcpy(buf, name)))
 		{
 			free(buf);
-			dprintf(2, "strcpy() failure\n"), exit(-1);
+			dprintf(STDERR_FILENO, "strcpy() failure\n"), exit(-1);
 		}
 		buf[idx] = '=';
 		if (strncmp(buf, environ[i], strlen(buf)) == 0)
