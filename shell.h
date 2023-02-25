@@ -1,7 +1,6 @@
 #ifndef _SHELL_H_
 #define _SHELL_H_
 #define _GNU_SOURCE
-#define MAXLEN 4096
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,43 +13,54 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <stdarg.h>
+#include <ctype.h>
 
-/* string.c */
+/*macros*/
+#define MAXLEN 4096
+#define PROMPT "$ "
+
+/* get_input.c */
+char *get_path(void);
+
+/* prompt.c */
+void prompt(void);
+
+/* str_funcs1.c */
 int _strlen(char *);
 int _strcmp(char *, char *);
 char *_strstr(char *haystack, char *needle);
 char *_strcat(char *, char *);
 char *_strchr(char *s, char c);
 
-/* string1.c */
+/* str_funcs2.c */
 char *_strcpy(char *, char *);
 char *_strdup(const char *);
 void _puts(char *);
 int _putchar(char);
 unsigned int _strspn(char *s, char *accept);
 
-/* mem_mgt.c */
+/* mem_funcs.c */
 char *_memset(char *, char, unsigned int);
 char *_memcpy(char *dest, char *src, unsigned int n);
 void *_realloc(void *, unsigned int, unsigned int);
 void *_calloc(unsigned int nmemb, unsigned int size);
 
-/* printenviron.c */
-void printenviron(char **ev);
+/* print_env.c */
+void print_env(char **ev);
 
-/* tok.c */
+/* tokenizer.c */
 char **tokenize(char *str, const char *delim);
 
 /* which.c */
 char *which(char *filename);
 
-/* _getenv.c */
+/* get_env.c */
 char *_getenv(const char *name);
 
 /* cleaner.c */
 void free_error(char **argv, char *arg);
 
 /* cleaner2.c */
-void cleaner2(char **ptr);
+void free_tok(char **ptr);
 
 #endif
