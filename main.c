@@ -34,7 +34,7 @@ int main(int ac __attribute__((unused)), char **av, char **ev)
 		{
 			ptr = NULL;
 			if (argv[0][0] != '/')
-				ptr = which(argv[0]);
+				ptr = find_in_path(argv[0]);
 			if (ptr == NULL)
 				ptr = argv[0];
 			if (execve(ptr, argv, ev) == -1)

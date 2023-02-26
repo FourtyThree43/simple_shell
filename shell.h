@@ -16,20 +16,21 @@
 #include <ctype.h>
 
 /*macros*/
-#define MAXLEN 4096
+#define PATH_MAX_LENGTH 4096
+#define PATH_SEPARATOR ":"
 #define PROMPT "$ "
 
 /* get_input.c */
-char *get_path(void);
+//char *get_input(void);
 
 /* prompt.c */
-void prompt(void);
+//void prompt(void);
 
 /* str_funcs1.c */
 int _strlen(char *);
 int _strcmp(char *, char *);
 char *_strstr(char *haystack, char *needle);
-char *_strcat(char *, char *);
+char *_strcat(char *, const char *);
 char *_strchr(char *s, char c);
 
 /* str_funcs2.c */
@@ -51,11 +52,14 @@ void print_env(char **ev);
 /* tokenizer.c */
 char **tokenize(char *str, const char *delim);
 
-/* which.c */
-char *which(char *filename);
+/* find_in_path.c */
+char *find_in_path(char *command);
 
 /* get_env.c */
 char *_getenv(const char *name);
+
+/* get_path.c */
+char *get_path(void);
 
 /* free.c */
 void free_error(char **argv, char *arg);

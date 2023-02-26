@@ -82,7 +82,7 @@ char *_strstr(char *haystack, char *needle)
  *
  * Return: pointer to destination buffer
  */
-char *_strcat(char *dest, char *src)
+char *_strcat(char *dest, const char *src)
 {
 	char *ret = dest;
 
