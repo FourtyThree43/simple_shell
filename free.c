@@ -29,6 +29,7 @@ void free_tok(char **ptr)
 	int i;
 
 	for (i = 0; ptr[i]; i++)
-		free((ptr[i]));
+		free(ptr[i]), ptr[i] = NULL;
 	free(ptr);
+	ptr = NULL;
 }

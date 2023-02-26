@@ -17,7 +17,7 @@
 
 /*macros*/
 #define MAXLEN 4096
-#define PROMPT "$ "
+#define PROMPT "#rsh$ "
 
 /* get_input.c */
 char *get_path(void);
@@ -52,7 +52,7 @@ void print_env(char **ev);
 char **tokenize(char *str, const char *delim);
 
 /* which.c */
-char *which(char *filename);
+char *which(char *filename, const char *path);
 
 /* get_env.c */
 char *_getenv(const char *name);

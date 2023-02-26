@@ -3,36 +3,48 @@
 /**
  * which - stat a filename
  * @filename: pointer to `filename` string
- *
+ * @path: pointer to path value string
  * Return: pointer to full path (success), or NULL (failure).
 */
-char *which(char *filename)
+char *which(char *filename, const char *path)
 {
 	struct stat st;
 	int stat_ret, i;
-	char buf[MAXLEN], *temp, *ret, **path;
+	char buf[MAXLEN], tempath[MAXLEN], **temp, *ret;
 
-	temp = _getenv("PATH");
-	if (!temp)
-		return (NULL);
-	path = tokenize(temp, ":");
-	if (!path)
-		return (NULL);
-	for (i = 0; path[i]; i++)
+	memset(buf, 0, MAXLEN), memset(tempath, 0, MAXLEN);
+	strcpy(tempath, path);
+	temp = tokenize(tempath, ":");
+	if (filename[0] != '/')
 	{
-		_memset(buf, 0, MAXLEN);
-		_strcpy(buf, path[i]);
-		_strcat(buf, "/");
-		_strcat(buf, filename);
-		stat_ret = stat(buf, &st);
-		if (stat_ret == 0)
+		for (i = 0; temp[i]; i++)
 		{
-			free_tok(path);
-			ret = &(buf[0]);
-			return (ret);
+			_memset(buf, 0, MAXLEN), _strcpy(buf, temp[i]), _strcat(buf, "/");
+			_strcat(buf, filename);
+			stat_ret = stat(buf, &st);
+			if (stat_ret == 0)
+			{
+				free_tok(temp);
+				ret = strdup(buf);
+				return (ret);
+			}
 		}
 	}
-	if (stat_ret == -1)
-		free_tok(path);
+	else
+	{
+		if (!(stat(filename, &st)))
+		{
+			for (i = 0; temp[i]; i++)
+			{
+				if (!(strncmp(temp[i], filename, _strlen(temp[i]))))
+				{
+					free_tok(temp);
+					ret = strdup(filename);
+					return (ret);
+				}
+			}
+		}
+	}
+	free_tok(temp);
 	return (NULL);
 }
