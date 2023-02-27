@@ -62,6 +62,8 @@ int main(int ac __attribute__((unused)), char **av, char **ev)
 			printf(PROMPT);
 		}
 	}
+	if (strcmp(arg, "exit\n") != 0)
+		putchar(10);
 	free(arg);
 	exit(status);
 }
