@@ -20,11 +20,11 @@ char **tokenize(char *str, const char *delim)
 		if (ret == NULL)
 			return (NULL);
 
-		ret[i] = malloc(_strlen(token) + 1);
+		ret[i] = malloc(strlen(token) + 1);
 		if (!(ret[i]))
 			return (NULL);
 
-		_strcpy(ret[i], token);
+		strcpy(ret[i], token);
 		token = strtok(NULL, delim);
 		i++;
 	}

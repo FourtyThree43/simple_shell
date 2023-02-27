@@ -33,27 +33,35 @@ int main(int ac __attribute__((unused)), char **av, char **ev)
 		ptr = which(argv[0], path);
 		if (ptr == NULL)
 		{
-			printf("%s not found\n", argv[0]);
-			free_tok(argv), printf(PROMPT);
+			printf("%s: command not found\n%s", argv[0], PROMPT);
+			free_tok(argv);
 			continue;
 		}
 		free(argv[0]);
 		argv[0] = ptr;
 		id = fork();
 		if (id == -1)
-			perror(av[0]), free_error(argv, arg);
+		{
+			perror(av[0]);
+			free_error(argv, arg);
+		}
 		if (id == 0)
 		{
 			if (execve(argv[0], argv, ev) == -1)
-				perror(av[0]), free_error(argv, arg);
+			{
+				perror(av[0]);
+				free_error(argv, arg);
+			}
 		}
 		else
 		{
 			wait(&wstatus);
 			if (WIFEXITED(wstatus))
 				status = WEXITSTATUS(wstatus);
-			free_tok(argv), printf(PROMPT);
+			free_tok(argv);
+			printf(PROMPT);
 		}
 	}
-	free(arg), exit(status);
+	free(arg);
+	exit(status);
 }

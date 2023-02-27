@@ -13,15 +13,16 @@ char *_getenv(const char *name)
 
 	idx = strlen(name);
 	buf = calloc(idx + 2, sizeof(char));
+
 	if (!(buf))
-		dprintf(STDERR_FILENO, "calloc() failure\n"), exit(-1);
+		dprintf(STDERR_FILENO, "calloc() failure\n"), exit(EXIT_FAILURE);
 
 	for (i = 0; environ[i]; i++)
 	{
 		if (!(strcpy(buf, name)))
 		{
 			free(buf);
-			dprintf(STDERR_FILENO, "strcpy() failure\n"), exit(-1);
+			dprintf(STDERR_FILENO, "strcpy() failure\n"), exit(EXIT_FAILURE);
 		}
 		buf[idx] = '=';
 		if (strncmp(buf, environ[i], strlen(buf)) == 0)
@@ -30,6 +31,7 @@ char *_getenv(const char *name)
 			return (environ[i] + idx + 1);
 		}
 	}
+
 	free(buf);
 	return (NULL);
 }

@@ -19,8 +19,8 @@ char *which(char *filename, const char *path)
 	{
 		for (i = 0; temp[i]; i++)
 		{
-			_memset(buf, 0, MAXLEN), _strcpy(buf, temp[i]), _strcat(buf, "/");
-			_strcat(buf, filename);
+			memset(buf, 0, MAXLEN), strcpy(buf, temp[i]), strcat(buf, "/");
+			strcat(buf, filename);
 			stat_ret = stat(buf, &st);
 			if (stat_ret == 0)
 			{
@@ -36,7 +36,7 @@ char *which(char *filename, const char *path)
 		{
 			for (i = 0; temp[i]; i++)
 			{
-				if (!(strncmp(temp[i], filename, _strlen(temp[i]))))
+				if (!(strncmp(temp[i], filename, strlen(temp[i]))))
 				{
 					free_tok(temp);
 					ret = strdup(filename);
