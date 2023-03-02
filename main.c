@@ -45,7 +45,7 @@ int main(int ac __attribute__((unused)), char **av, char **ev)
 			wait(&wstatus);
 			if (WIFEXITED(wstatus))
 				status = WEXITSTATUS(wstatus);
-			free_tok(argv);
+			free_tokens(argv);
 		}
 	}
 	free(arg), exit(status);

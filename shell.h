@@ -20,19 +20,19 @@
 #define PATH_SEPARATOR ":"
 #define PROMPT "$ "
 
-/**
- * struct bultin_s - struct for storing built-in commands
- * @cmd: the name of the biult-in command.
- * @func: a function pointer to the built-in commands's corresponing function.
- *
- * Description: This struct is used to store the built-in commands and their
- *              corresponding function pointers in a linked list.
- */
-typedef struct builtin_s
-{
-	char *cmd;
-	void (*func)(char **);
-};builtin_t;
+// *
+//  * struct bultin_s - struct for storing built-in commands
+//  * @cmd: the name of the biult-in command.
+//  * @func: a function pointer to the built-in commands's corresponing function.
+//  *
+//  * Description: This struct is used to store the built-in commands and their
+//  *              corresponding function pointers in a linked list.
+ 
+// typedef struct builtin_s
+// {
+// 	char *cmd;
+// 	void (*func)(char **);
+// };builtin_t;
 
 
 /* get_input.c */
@@ -42,8 +42,8 @@ typedef struct builtin_s
 //void prompt(void);
 
 /* error.c */
-void _puts(const char *str);
-void _puterror(const char *err);
+void _puts(char *str);
+void _puterror(char *err);
 
 /* utils_funcs1.c */
 int _strlen(char *);
@@ -81,6 +81,6 @@ char *get_path(void);
 
 /* free.c */
 void free_error(char **argv, char *arg);
-void free_tok(char **ptr);
+void free_tokens(char **ptr);
 
 #endif

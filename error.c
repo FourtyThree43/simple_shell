@@ -6,7 +6,7 @@
  *
  * Return: Void
  */
-void _puts(const char *str)
+void _puts(char *str)
 {
     size_t len;
     ssize_t num_written;
@@ -25,7 +25,7 @@ void _puts(const char *str)
  *
  * Return: Void
  */
-void _puterror(const char *err)
+void _puterror(char *err)
 {
     size_t len;
     ssize_t num_written;
