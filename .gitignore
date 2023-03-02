@@ -54,6 +54,7 @@ dkms.conf
 
 # Test files
 test/
+*bac
 
 #miscellaneous
 .vscode
