@@ -29,12 +29,12 @@ char *find_in_path(char *command)
 		stat_ret = stat(buf, &st);
 		if (stat_ret == 0)
 		{
-			free_tok(dir);
+			free_tokens(dir);
 			ret = &(buf[0]);
 			return (ret);
 		}
 	}
 	if (stat_ret == -1)
-		free_tok(dir);
+		free_tokens(dir);
 	return (NULL);
 }

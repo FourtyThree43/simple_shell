@@ -19,12 +19,12 @@ void free_error(char **argv, char *arg)
 }
 
 /**
- * free_tok - frees memory allocated dynamically by tokenize()
+ * free_tokens - frees memory allocated dynamically by tokenize()
  * @ptr: pointer to allocated memory
  *
  * Return: void.
  */
-void free_tok(char **ptr)
+void free_tokens(char **ptr)
 {
 	int i;
 

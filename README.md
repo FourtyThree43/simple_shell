@@ -58,6 +58,7 @@ The project is organized as follows:
 ├── tokenizer.c
 ├── execute.c
 ├── free.c
+├── signal_handler.c
 ├── built-ins Funcs:
 │ ├── get_env.c
 │ ├── bultins_shell_cd.c
@@ -110,6 +111,9 @@ The project is organized as follows:
 
 `Makefile`: a file that specifies the compilation rules for the shell.
 
+`test_files`: These are test files for each of the implementation files in source_files. 
+
+This tree separates the implementation files from the test files, making it easier to navigate the project and run the tests.
 
 ## Function Prototypes.
 
@@ -121,15 +125,15 @@ The header file declares several function prototypes for the shell program, incl
 
 `get_input()`: retrieves user input from stdin
 
-`parse()`: tokenizes user input into arguments
-
-`tokenize_input()`: tokenizes user input into arguments
+`tokenize()`: tokenizes user input into arguments
 
 `handle_sigint()`: signal handler for SIGINT
 
 `handle_sigquit()`: signal handler for SIGQUIT
 
 `check_for_builtin()`: checks if a command is a shell builtin
+
+`execute_builtin()` : executes a built-in command
 
 `print_env()`: prints environment variables
 
@@ -155,9 +159,9 @@ The header file declares several function prototypes for the shell program, incl
 
 `prepend_to_path()`: prepends a directory to the PATH environment variable
 
-`_free_args()`: frees memory allocated for command arguments
+`free_error()`: frees memory allocated for command arguments
 
-`_free_tokens()`: frees memory allocated for tokens
+`free_tokens()`: frees memory allocated for tokens
 
 `_puterror()`: prints an error message
 
@@ -233,94 +237,10 @@ This will create a new file called `simple_shell.1`. You can view the man page b
 
 `man ./simple_shell.1`
 
+## AUTHORS
+
+This program was written by FourtyThree43 and Kemboiray.
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-### Directory Description
-`source_files`: This directory contains all of the source code files for the shell program.
-`builtins`: This subdirectory contains the source code files for the shell's built-in commands, such as cd, help, exit, env, setenv, and unsetenv.
-`path_funcs`: This subdirectory contains the source code files for functions related to working with the system's PATH environment variable, such as finding a command in the PATH, getting the current PATH, and setting or modifying the PATH.
-`str_funcs`: This subdirectory contains the source code files for various string manipulation functions used throughout the shell program, such as strlen, strcpy, strcat, strcmp, and strdup.
-`check_for_builtin.c`: This file contains the implementation of a function that checks if a given command is a built-in command.
-`error.c`: This file contains the implementation of functions for handling errors.
-`execute.c`: This file contains the implementation of the function that executes non-built-in commands.
-`free.c`: This file contains the implementation of functions for deallocating memory.
-`main.c`: This file contains the main function of the shell program.
-`parse.c`: This file contains the implementation of functions for parsing user input into arguments.
-`prompt.c`: This file contains the implementation of a function that displays the shell prompt.
-`shell.h`: This file contains function prototypes, macros, and structure definitions used throughout the shell program.
-`signal_handler.c`: This file contains the implementation of signal handler functions for handling SIGINT and SIGQUIT signals.
-
-
-Inside test_files, there are test files for each of the implementation files in source_files. This tree separates the implementation files from the test files, making it easier to navigate the project and run the tests.
-
-The header file declares several function prototypes for the shell program, including:
-
-`prompt()`: prints the shell prompt
-
-`execute()`: executes a command with arguments
-
-`get_input()`: retrieves user input from stdin
-
-`parse()`: tokenizes user input into arguments
-
-`tokenize_input()`: tokenizes user input into arguments
-
-`handle_sigint()`: signal handler for SIGINT
-
-`handle_sigquit()`: signal handler for SIGQUIT
-
-`check_for_builtin()`: checks if a command is a shell builtin
-
-`print_env()`: prints environment variables
-
-`set_env()`: sets an environment variable
-
-`unset_env()`: unsets an environment variable
-
-`_getenv()`: retrieves the value of an environment variable
-
-`shell_help()`: prints help information for the shell
-
-`shell_cd()`: changes the current working directory
-
-`exit_shell()`: exits the shell program with a status code
-
-`find_in_path()`: searches for a command in the directories specified by the PATH environment variable
-
-`get_path()`: retrieves the PATH environment variable
-
-`set_path()`: sets the PATH environment variable
-
-`append_to_path()`: appends a directory to the PATH environment variable
-
-`prepend_to_path()`: prepends a directory to the PATH environment variable
-
-`_free_args()`: frees memory allocated for command arguments
-
-`_free_tokens()`: frees memory allocated for tokens
-
-`_puterror()`: prints an error message
-
-`_puts()`: prints a string
-
-`_atoi()`: converts a string to an integer
-
-`_putchar()`: prints a character
-
-`_strlen()`: gets the length of a string
-
-`_strcmp()`: compares two strings
-
-`_strcpy()`: copies a string
-
-`_strcat()`: concatenates two strings
-
-`_strdup()`: duplicates a string
-
-`_strchr()`: searches a string for a character
-
-`_strstr()`: searches for the first occurrence of a substring
-
-`_strspn()`: gets the length of a prefix substring
