@@ -1,8 +1,9 @@
 #include "shell.h"
 
 /**
- * print_env - print the current environment
- * @ev: smth.
+ * print_env - Prints all the environment variables.
+ * @ev: A NULL terminated array of strings containing the environment variables
+ *
  * Return: void.
  */
 void print_env(char **ev)
