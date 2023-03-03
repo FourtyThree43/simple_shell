@@ -23,6 +23,25 @@ char *_strcpy(char *dest, char *src)
 }
 
 /**
+ * _strcat - concatenates two strings
+ * @dest: the destination buffer
+ * @src: the source buffer
+ *
+ * Return: pointer to destination buffer
+ */
+char *_strcat(char *dest, const char *src)
+{
+	char *ret = dest;
+
+	while (*dest)
+		dest++;
+	while (*src)
+		*dest++ = *src++;
+	*dest = *src;
+	return (ret);
+}
+
+/**
  * _strdup - duplicates a string
  * @str: the string to duplicate
  *
@@ -55,7 +74,6 @@ int _putchar(char c)
 {
 	return (write(1, &c, 1));
 }
-
 
 /**
  * _strspn - a function that gets the

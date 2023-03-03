@@ -125,9 +125,11 @@ The header file declares several function prototypes for the shell program, incl
 
 `get_input()`: retrieves user input from stdin
 
-`tokenize()`: tokenizes user input into arguments
+`tokenize()`: parsing user input into arguments.
 
 `handle_sigint()`: signal handler for SIGINT
+
+`handle_sigstp()`: signal handler for SIGSTP
 
 `handle_sigquit()`: signal handler for SIGQUIT
 
@@ -159,7 +161,7 @@ The header file declares several function prototypes for the shell program, incl
 
 `prepend_to_path()`: prepends a directory to the PATH environment variable
 
-`free_error()`: frees memory allocated for command arguments
+`free_error()`: frees memory allocated following system error
 
 `free_tokens()`: frees memory allocated for tokens
 
@@ -239,7 +241,7 @@ This will create a new file called `simple_shell.1`. You can view the man page b
 
 ## AUTHORS
 
-This program was written by FourtyThree43 and Kemboiray.
+This program was written by `FourtyThree43` and `Kemboiray`.
 
 ## License
 
