@@ -62,6 +62,7 @@ char *find_in_path(char *command);
 /* free.c */
 void free_error(char **argv, char *arg);
 void free_tokens(char **ptr);
+void free_path(void);
 
 /* error.c */
 void _puts(char *str);

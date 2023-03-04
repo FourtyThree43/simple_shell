@@ -15,7 +15,7 @@ int execute(char **argv)
 	if (argv == NULL || *argv == NULL)
 		return (status);
 	if (check_for_builtin(argv))
-		return (0);
+		return (status);
 
 	id = fork();
 	if (id < 0)

@@ -22,6 +22,7 @@ char *get_input(void)
 		if (nread == -1)
 		{
 			free(input);
+			_puts("\n");
 			return (NULL);
 		}
 
