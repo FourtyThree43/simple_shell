@@ -19,6 +19,7 @@
 #define PATH_MAX_LENGTH 4096
 #define PATH_SEPARATOR ":"
 #define PROMPT "$ "
+#define BUFFER_SIZE 1024
 
 /**
  * struct bultin_s - struct for storing built-in commands
@@ -39,6 +40,8 @@ void prompt(void);
 
 /* get_input.c */
 char *get_input(void);
+/* get_line.c*/
+void *get_line(void);
 
 /* built-in funcs */
 int check_for_builtin(char **args);
