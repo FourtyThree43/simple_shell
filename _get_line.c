@@ -2,13 +2,13 @@
 
 /**
  * get_line - Read input from the standard input.
- * 
+ *
  * Return: The string enter by the user.
 */
 void *get_line(void)
 {
 	static char buffer[BUFFER_SIZE];
-	static int buf_pos = 0, buf_size =0;
+	static int buf_pos, buf_size;
 	char *input_str = NULL;
 	int input_len = 0;
 
@@ -28,6 +28,7 @@ void *get_line(void)
 		}
 
 		char current_char = buffer[buf_pos];
+
 		buf_pos++;
 
 		if (current_char == '\n')

@@ -21,20 +21,6 @@
 #define PROMPT "$ "
 #define BUFFER_SIZE 1024
 
-/**
- * struct bultin_s - struct for storing built-in commands
- * @cmd: the name of the biult-in command.
- * @func: a function pointer to the built-in commands's corresponing function.
- *
- * Description: This struct is used to store the built-in commands and their
- *              corresponding function pointers in a linked list.
- */
-// typedef struct builtin_s
-// {
-// 	char *cmd;
-// 	void (*func)(char **);
-// };builtin_t;
-
 /* prompt.c */
 void prompt(void);
 
@@ -45,30 +31,33 @@ void *get_line(void);
 
 /* built-in funcs */
 int check_for_builtin(char **args);
-int execute_buitlin(char *cmd, char **args);
 void shell_help(void);
-void shell_exit(int status);
+void shell_exit(char **args);
 void shell_cd(char **args);
-void set_env(char **args);
-void unset_env(char **args);
-/* print_env.c */
-void print_env(char **ev);
+int shell_setenv(char **args);
+int shell_unsetenv(char **args);
+int shell_env(void);
 
+/* signal_handler.c */
+void handle_sigint(int sig);
+void handle_sigquit(int sig);
+void handle_sigstp(int sig);
 
+/* execute.c */
 int execute(char **args);
 
 /* parser.c */
 char **tokenize(char *str, const char *delim);
 char **tokenize_input(char *input);
 
-/* find_in_path.c */
-char *find_in_path(char *command);
-
 /* get_env.c */
 char *_getenv(const char *name);
 
 /* get_path.c */
 char *get_path(void);
+
+/* find_in_path.c */
+char *find_in_path(char *command);
 
 /* free.c */
 void free_error(char **argv, char *arg);
@@ -93,6 +82,7 @@ int _putchar(char);
 unsigned int _strspn(char *s, char *accept);
 
 /* utils_funcs3.c */
+int _atoi(const char *str);
 char *_memset(char *, char, unsigned int);
 char *_memcpy(char *dest, char *src, unsigned int n);
 void *_realloc(void *, unsigned int, unsigned int);

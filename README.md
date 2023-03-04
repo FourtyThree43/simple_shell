@@ -54,6 +54,7 @@ The project is organized as follows:
 ├── shell.h
 ├── main.c
 ├── get_input.c
+├── get_line.c*
 ├── prompt.c
 ├── tokenizer.c
 ├── execute.c
@@ -123,7 +124,9 @@ The header file declares several function prototypes for the shell program, incl
 
 `execute()`: executes a command with arguments
 
-`get_input()`: retrieves user input from stdin
+`get_line()`: Read input from the standard input. Custom getline().
+
+`get_input()`: Retrieves user input from stdin. Uses getline().
 
 `tokenize()`: parsing user input into arguments.
 
@@ -135,21 +138,19 @@ The header file declares several function prototypes for the shell program, incl
 
 `check_for_builtin()`: checks if a command is a shell builtin
 
-`execute_builtin()` : executes a built-in command
+`shell_env()`: prints environment variables
 
-`print_env()`: prints environment variables
+`shell_setenv()`: sets an environment variable
 
-`set_env()`: sets an environment variable
-
-`unset_env()`: unsets an environment variable
-
-`_getenv()`: retrieves the value of an environment variable
+`shell_unsetenv()`: unsets an environment variable
 
 `shell_help()`: prints help information for the shell
 
 `shell_cd()`: changes the current working directory
 
-`exit_shell()`: exits the shell program with a status code
+`shell_exit()`: exits the shell program with a status code
+
+`_getenv()`: retrieves the value of an environment variable
 
 `find_in_path()`: searches for a command in the directories specified by the PATH environment variable
 
