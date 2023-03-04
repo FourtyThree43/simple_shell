@@ -96,7 +96,7 @@ The project is organized as follows:
 
 `execute.c`: a file that contains the functions for executing the non-built-in commands.
 
-`tokenizer.c` : This file contains the implementation of functions for parsing user input into arguments.
+`parser.c` : This file contains the implementation of functions for parsing user input into arguments.
 
 `free.c`: This file contains the implementation of functions for deallocating memory.
 
