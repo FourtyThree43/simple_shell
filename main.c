@@ -2,13 +2,10 @@
 
 /**
  * main - implements a simple shell
- * @ac: argument count
- * @av: argument vector
- * @ev: environment
  *
  * Return: EXIT_SUCCESS.
  */
-int main(int ac __attribute__((unused)), char **av, char **ev)
+int main(void)
 {
 	char *input;
 	char **args;

@@ -10,6 +10,7 @@ void *get_line(void)
 	static char buffer[BUFFER_SIZE];
 	static int buf_pos, buf_size;
 	char *input_str = NULL;
+	char current_char;
 	int input_len = 0;
 
 	while (1)
@@ -27,7 +28,7 @@ void *get_line(void)
 			}
 		}
 
-		char current_char = buffer[buf_pos];
+		current_char = buffer[buf_pos];
 
 		buf_pos++;
 

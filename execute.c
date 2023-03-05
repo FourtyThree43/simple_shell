@@ -9,8 +9,8 @@
 int execute(char **argv)
 {
 	pid_t id;
-	int wstatus, status = 0;
-	char *cmd_path, *envp[] = { _getenv("PATH"), NULL };
+	int status = 0;
+	char *cmd_path, *envp[1];
 
 	if (argv == NULL || *argv == NULL)
 		return (status);
@@ -27,6 +27,7 @@ int execute(char **argv)
 		perror(argv[0]), free_tokens(argv);
 	if (id == 0)
 	{
+		envp[0] = get_path();
 		cmd_path = NULL;
 		if (argv[0][0] != '/')
 			cmd_path = find_in_path(argv[0]);
