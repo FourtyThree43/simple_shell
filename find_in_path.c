@@ -27,7 +27,7 @@ char *find_in_path(char *command)
 		_strcat(buf, "/");
 		_strcat(buf, command);
 		stat_ret = stat(buf, &st);
-		if (stat_ret == 0)
+		if (stat_ret == 0 && S_ISREG(st.st_mode) && (st.st_mode & S_IXUSR))
 		{
 			free_tokens(dir);
 			ret = &(buf[0]);
