@@ -30,7 +30,10 @@ char *find_in_path(char *command)
 		if (stat_ret == 0 && S_ISREG(st.st_mode) && (st.st_mode & S_IXUSR))
 		{
 			free_tokens(dir);
-			ret = &(buf[0]);
+			ret = malloc(sizeof(char) * (strlen(buf) + 1));
+			if (!ret)
+				return (NULL);
+			strcpy(ret, buf);
 			return (ret);
 		}
 	}
