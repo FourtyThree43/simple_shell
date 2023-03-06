@@ -24,7 +24,7 @@ int execute(char **argv)
 		return (1);
 	}
 	if (id == -1)
-		perror(argv[0]), free_tokens(argv);
+		perror(argv[0]), free_tokens(argv),free_last_input();
 	if (id == 0)
 	{
 		envp[0] = get_path();
@@ -35,7 +35,10 @@ int execute(char **argv)
 		if (cmd_path == NULL)
 			cmd_path = argv[0];
 		if (execve(cmd_path, argv, envp) == -1)
-			perror(argv[0]), free_tokens(argv), exit(EXIT_FAILURE);
+		{
+			perror(argv[0]), free_tokens(argv), free_last_input();
+			exit(EXIT_FAILURE);
+		}
 	}
 	else
 	{

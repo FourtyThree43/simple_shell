@@ -27,6 +27,7 @@ void prompt(void);
 
 /* get_input.c */
 char *get_input(void);
+void free_last_input(void);
 /* get_line.c*/
 void *get_line(void);
 

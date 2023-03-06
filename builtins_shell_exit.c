@@ -14,6 +14,7 @@ void shell_exit(char **args)
 	{
 		status = _atoi(args[1]);
 	}
-
+	free_tokens(args);
+	free_last_input();
 	exit(status);
 }

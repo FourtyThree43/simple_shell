@@ -1,5 +1,6 @@
 #include "shell.h"
 
+static char *last_input;
 /**
  * get_input - Read the line of input from user.
  *
@@ -31,5 +32,19 @@ char *get_input(void)
 
 	} while (input[0] == '\0' || isspace(input[0]));
 
+    /* update last_input to point to the new input */
+    last_input = input;
 	return (input);
+}
+
+/**
+ * free_last_input - Frees the most recent input entered by the user.
+ *
+ * This function frees the memory allocated for the most recent input string
+ * entered by the user. It should be called after the input string is no longer
+ * needed.
+ */
+void free_last_input(void)
+{
+	free(last_input);
 }
