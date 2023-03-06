@@ -32,8 +32,8 @@ char *get_input(void)
 
 	} while (input[0] == '\0' || isspace(input[0]));
 
-    /* update last_input to point to the new input */
-    last_input = input;
+	/* update last_input to point to the new input */
+	last_input = input;
 	return (input);
 }
 

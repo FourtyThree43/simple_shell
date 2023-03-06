@@ -24,7 +24,7 @@ int execute(char **argv)
 		return (1);
 	}
 	if (id == -1)
-		perror(argv[0]), free_tokens(argv),free_last_input();
+		perror(argv[0]), free_tokens(argv), free_last_input();
 	if (id == 0)
 	{
 		envp[0] = get_path();
