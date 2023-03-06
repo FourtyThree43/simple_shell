@@ -14,7 +14,7 @@ char *get_input(void)
 
 	do {
 		/* print shell prompt */
-		/*prompt();*/
+		prompt();
 
 		/* get a line of input from user */
 		nread = getline(&input, &input_size, stdin);
@@ -23,7 +23,7 @@ char *get_input(void)
 		if (nread == -1)
 		{
 			free(input);
-			/*_puts("\n");*/
+			_puts("\n");
 			return (NULL);
 		}
 
