@@ -1,35 +1,23 @@
 #include "shell.h"
 
 /**
- * _getenv - return the value corresponding to an environment variable name
- * @name: variable name
+ * _getenv - Get the value of an environment variable
+ * @name: Name of the environment variable
  *
- * Return: value string (success), or NULL (failure).
+ * Return: Value of the environment variable, or NULL if it doesn't exist
  */
 char *_getenv(const char *name)
 {
-	unsigned int i, idx;
-	char *buf;
+	char **env;
+	size_t name_len = _strlen(name);
 
-	idx = strlen(name);
-	buf = calloc(idx + 2, sizeof(char));
-	if (!(buf))
-		dprintf(STDERR_FILENO, "calloc() failure\n"), exit(-1);
-
-	for (i = 0; environ[i]; i++)
+	for (env = environ; *env != NULL; env++)
 	{
-		if (!(strcpy(buf, name)))
+		if (_strncmp(*env, name, name_len) == 0 && (*env)[name_len] == '=')
 		{
-			free(buf);
-			dprintf(STDERR_FILENO, "strcpy() failure\n"), exit(-1);
-		}
-		buf[idx] = '=';
-		if (strncmp(buf, environ[i], strlen(buf)) == 0)
-		{
-			free(buf);
-			return (environ[i] + idx + 1);
+			return (&(*env)[name_len + 1]);
 		}
 	}
-	free(buf);
+
 	return (NULL);
 }

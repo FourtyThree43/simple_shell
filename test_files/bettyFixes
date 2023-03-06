@@ -1,0 +1,21 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+my $TAB_WIDTH = 4;
+
+my @files = `find . -name "*.c"`;
+
+foreach my $file (@files) {
+    chomp($file);
+
+    # Remove trailing white spaces
+    `perl -pi -e 's/[[:space:]]*\$//g' $file`;
+
+    # Convert end-of-line sequences to LF
+    `perl -pi -e 's/\r\n|\r/\n/g' $file`;
+
+    # Convert indents to tabs
+    `perl -pi -e 's{^(( {$TAB_WIDTH})+) }{substr("\t" x length(\$1), 0, $TAB_WIDTH)}e' $file`;
+}

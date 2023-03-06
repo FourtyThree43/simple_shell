@@ -2,51 +2,39 @@
 
 /**
  * main - implements a simple shell
- * @ac: argument count
- * @av: argument vector
- * @ev: environment
  *
  * Return: EXIT_SUCCESS.
  */
-int main(int ac __attribute__((unused)), char **av, char **ev)
+int main(void)
 {
-	char *arg = NULL, *ptr = NULL, **argv;
-	size_t len = 0;
-	ssize_t nread;
-	pid_t id;
-	int wstatus, status = EXIT_SUCCESS;
+	char *input;
+	char **args;
+	int status;
 
-	while ((nread = getline(&arg, &len, stdin)) != -1)
-	{
-		if (_strspn(arg, " \n\r\t\a") == strlen(arg))
+	/* Register signal handlers */
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, handle_sigquit);
+	signal(SIGTSTP, handle_sigstp);
+
+	do {
+		input = get_input();
+		if (!input || !*input)/* EOF detected, exit the loop */
+			break;
+
+		args = tokenize_input(input);
+		if (!args || !*args)
 		{
-			free(arg), arg = NULL;
+			free(input);
+			free_tokens(args);
 			continue;
 		}
-		if (_strcmp(arg, "exit\n") == 0)
-			break;
-		arg[nread - 1] = '\0';
-		argv = tokenize(arg, " ");
-		id = fork();
-		if (id == -1)
-			perror(av[0]), free_error(argv, arg);
-		if (id == 0)
-		{
-			ptr = NULL;
-			if (argv[0][0] != '/')
-				ptr = which(argv[0]);
-			if (ptr == NULL)
-				ptr = argv[0];
-			if (execve(ptr, argv, ev) == -1)
-				perror(av[0]), free_error(argv, arg);
-		}
-		else
-		{
-			wait(&wstatus);
-			if (WIFEXITED(wstatus))
-				status = WEXITSTATUS(wstatus);
-			free_tok(argv);
-		}
-	}
-	free(arg), exit(status);
+		status = execute(args);
+		free(input);
+		free_tokens(args);
+
+		/* Set status to 1 to continue the loop */
+		status = 1;
+	} while (status);
+
+	return (EXIT_SUCCESS);
 }

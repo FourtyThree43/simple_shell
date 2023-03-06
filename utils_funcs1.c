@@ -6,7 +6,7 @@
  *
  * Return: integer length of string
  */
-int _strlen(char *s)
+int _strlen(const char *s)
 {
 	int i = 0;
 
@@ -19,25 +19,49 @@ int _strlen(char *s)
 }
 
 /**
- * _strcmp - performs lexicogarphic comparison of two strangs.
- * @s1: the first strang
- * @s2: the second strang
- *
- * Return: negative if s1 < s2, positive if s1 > s2, zero if s1 == s2
+ * _strcmp - Compare two strings.
+ * @s1: The first string to compare.
+ * @s2: The second string to compare.
+ * Return: 0 if @s1 and @s2 are equal,
+ *         a negative value if @s1 is less than @s2,
+ *         or a positive value if @s1 is greater than @s2.
  */
-int _strcmp(char *s1, char *s2)
+int _strcmp(const char *s1, const char *s2)
 {
-	while (*s1 && *s2)
+	while (*s1 != '\0' && *s2 != '\0' && *s1 == *s2)
 	{
-		if (*s1 != *s2)
-			return (*s1 - *s2);
 		s1++;
 		s2++;
 	}
-	if (*s1 == *s2)
-		return (0);
-	else
-		return (*s1 < *s2 ? -1 : 1);
+
+	return ((int) (*s1) - (*s2));
+}
+
+/**
+ * _strncmp - Compare two strings up to a specified length.
+ * @s1: First string to compare.
+ * @s2: Second string to compare.
+ * @n: Maximum number of characters to compare.
+ *
+ * Return: 0 if the strings are equal up to n characters, negative value
+ *         if s1 is less than s2, or positive value if s1 is greater than s2.
+ */
+int _strncmp(const char *s1, const char *s2, size_t n)
+{
+	unsigned char c1, c2;
+
+	while (n-- > 0)
+	{
+		c1 = (unsigned char) *s1++;
+		c2 = (unsigned char) *s2++;
+
+		if (c1 != c2)
+			return (c1 - c2);
+		if (c1 == '\0')
+			break;
+	}
+
+	return (0);
 }
 
 /**
@@ -72,26 +96,6 @@ char *_strstr(char *haystack, char *needle)
 		}
 	}
 	return (NULL);
-}
-
-
-/**
- * _strcat - concatenates two strings
- * @dest: the destination buffer
- * @src: the source buffer
- *
- * Return: pointer to destination buffer
- */
-char *_strcat(char *dest, char *src)
-{
-	char *ret = dest;
-
-	while (*dest)
-		dest++;
-	while (*src)
-		*dest++ = *src++;
-	*dest = *src;
-	return (ret);
 }
 
 /**
