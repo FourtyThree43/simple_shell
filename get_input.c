@@ -47,4 +47,5 @@ char *get_input(void)
 void free_last_input(void)
 {
 	free(last_input);
+	last_input = NULL;
 }
